@@ -18,6 +18,9 @@ function Navbar() {
             <Link to="/events">
               <button>Events</button>
             </Link>
+            <Link to="/profile/edit">
+              <button>Edit profile</button>
+            </Link>
             <button onClick={logOutUser}>Logout</button>
             <span>{user.name}</span>
           </>)

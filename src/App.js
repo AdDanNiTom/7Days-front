@@ -10,6 +10,7 @@ import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import PrivateRoute from "./components/PrivateRoute";    // <== IMPORT
 import AnonRoute from "./components/AnonRoute";        // <== IMPORT
+import EditProfilePage from "./pages/EditProfilePage";
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
         <PrivateRoute exact path="/events" component={EventsListPage} />
         <PrivateRoute exact path="/events/:id" component={EventDetailsPage} />
         <PrivateRoute exact path="/events/edit/:id" component={EditEventPage} />
+
+        <PrivateRoute exact path="/profile/edit" component={EditProfilePage} />
         
         <AnonRoute exact path="/signup" component={SignupPage} />
         <AnonRoute exact path="/login" component={LoginPage} />
