@@ -39,13 +39,18 @@ function EditProfilePage(props) {
     console.log(storedToken)
 
     // Send the token through the request "Authorization" Headers
-    /* axios
-      .put(`${API_URI}/api/users/${user._id}`, requestBody, {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      })
+    // axios
+    //   .put(`${API_URI}/api/users/${user._id}/edit`, requestBody, {
+    //     headers: { Authorization: `Bearer ${storedToken}` },
+    //   })
+    //   .then((response) => {
+    //     props.history.push(`/projects/${userId}`);
+    //   }); 
+    axios
+       .put(`${API_URI}/api/users/${user._id}/edit`, requestBody)
       .then((response) => {
-        props.history.push(`/projects/${userId}`);
-      });  */
+        props.history.push(`/`);
+      }); 
       console.log('form submitted')
   };
 
