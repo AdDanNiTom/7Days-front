@@ -23,6 +23,7 @@ function LoginPage(props) {
       .post(`${API_URI}/auth/login`, requestBody)
       .then((response) => {
         console.log("JWT token", response.data.authToken);
+        console.log("Hola Tom");
 
         const JWTToken = response.data.authToken;
         logInUser(JWTToken);
