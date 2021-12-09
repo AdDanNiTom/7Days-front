@@ -55,14 +55,13 @@ nav li {
   border-radius: 4px;
 }
 
-.ProjectCard h3::after {
+.EventCard h3::after {
   content: url("https://education-team-2020.s3.eu-west-1.amazonaws.com/web-dev/m3/icon-expand.png");
   margin-left: 5px;
 }
 
-.EditProjectPage,
-.AddProject,
-.AddTask,
+.EditEventPage,
+.AddEvent,
 .SignupPage,
 .LoginPage {
   background: #f9eec3;
@@ -76,7 +75,7 @@ nav li {
   border-radius: 4px;
 }
 
-.EditProjectPage {
+.EditEventPage {
   background-color: rgb(239, 196, 88);
 }
 
@@ -89,9 +88,8 @@ nav li {
   background-color: #94a7c8;
 }
 
-.EditProjectPage form,
-.AddTask form,
-.AddProject form,
+.EditEventPage form,
+.AddEvent form,
 .SignupPage form,
 .LoginPage form {
   display: flex;
@@ -99,11 +97,6 @@ nav li {
   align-items: center;
 }
 
-.AddTask button,
-.AddProject button {
+.AddEvent button {
   display: block;
-}
-
-.TaskCard {
-  background-color: #dfeef9;
 }

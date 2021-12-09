@@ -3,41 +3,34 @@ import axios from "axios";
 
 const API_URI = process.env.REACT_APP_API_URI;
 
-function AddTask(props) {
+export default function AddEvent(props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // We need the project id when creating the new task
-    const { projectId } = props;
-    // Create an object representing the body of the POST request
-    const requestBody = { title, description, projectId };
+    const requestBody = { title, description };
 
     // Get the token from the localStorage
     const storedToken = localStorage.getItem("authToken");
 
     // Send the token through the request "Authorization" Headers
     axios
-      .post(`${API_URI}/api/tasks`, requestBody, {
+      .post(`${API_URI}/api/events`, requestBody, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        // Reset the state to clear the inputs
+        // Reset the state
         setTitle("");
         setDescription("");
-
-        // Invoke the callback function coming through the props
-        // from the ProjectDetailsPage, to refresh the project details
-        props.refreshProject();
+        props.refreshEvents();
       })
       .catch((error) => console.log(error));
   };
 
   return (
-    <div className="AddTask">
-      <h3>Add New Task</h3>
+    <div className="AddEvent">
+      <h3>Add Event</h3>
 
       <form onSubmit={handleSubmit}>
         <label>Title:</label>
@@ -56,10 +49,10 @@ function AddTask(props) {
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        <button type="submit">Add Task</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
 }
 
-export default AddTask;
+

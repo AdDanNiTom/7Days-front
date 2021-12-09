@@ -3,10 +3,11 @@ import axios from "axios";
 
 const API_URI = process.env.REACT_APP_API_URI;
 
-function EditProjectPage(props) {
+export default function EditEventPage(props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const projectId = props.match.params.id;
+
+  const eventId = props.match.params.id;
 
   useEffect(() => {
     // Get the token from the localStorage
@@ -14,16 +15,16 @@ function EditProjectPage(props) {
 
     // Send the token through the request "Authorization" Headers
     axios
-      .get(`${API_URI}/api/projects/${projectId}`, {
+      .get(`${API_URI}/api/events/${eventId}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        const oneProject = response.data;
-        setTitle(oneProject.title);
-        setDescription(oneProject.description);
+        const oneEvent = response.data;
+        setTitle(oneEvent.title);
+        setDescription(oneEvent.description);
       })
       .catch((error) => console.log(error));
-  }, [projectId]);
+  }, [eventId]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -34,30 +35,30 @@ function EditProjectPage(props) {
 
     // Send the token through the request "Authorization" Headers
     axios
-      .put(`${API_URI}/api/projects/${projectId}`, requestBody, {
+      .put(`${API_URI}/api/events/${eventId}`, requestBody, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        props.history.push(`/projects/${projectId}`);
+        props.history.push(`/events/${eventId}`);
       });
   };
 
-  const deleteProject = () => {
+  const deleteEvent= () => {
     // Get the token from the localStorage
     const storedToken = localStorage.getItem("authToken");
 
     // Send the token through the request "Authorization" Headers
     axios
-      .delete(`${API_URI}/api/projects/${projectId}`, {
+      .delete(`${API_URI}/api/events/${eventId}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
-      .then(() => props.history.push("/projects"))
+      .then(() => props.history.push("/events"))
       .catch((err) => console.log(err));
   };
 
   return (
-    <div className="EditProjectPage">
-      <h3>Edit the Project</h3>
+    <div className="EditEventPage">
+      <h3>Edit the Event</h3>
 
       <form onSubmit={handleFormSubmit}>
         <label>Title:</label>
@@ -75,12 +76,11 @@ function EditProjectPage(props) {
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        <button type="submit">Update Project</button>
+        <button type="submit">Update Event</button>
       </form>
 
-      <button onClick={deleteProject}>Delete Project</button>
+      <button onClick={deleteEvent}>Delete Event</button>
     </div>
   );
 }
 
-export default EditProjectPage;
