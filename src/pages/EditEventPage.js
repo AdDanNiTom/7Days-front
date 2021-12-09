@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link, useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 
 const API_URI = process.env.REACT_APP_API_URI;
@@ -6,8 +7,9 @@ const API_URI = process.env.REACT_APP_API_URI;
 export default function EditEventPage(props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const history = useHistory()
 
-  const eventId = props.match.params.id;
+  const {id} = useParams()
 
   useEffect(() => {
     // Get the token from the localStorage
@@ -15,7 +17,7 @@ export default function EditEventPage(props) {
 
     // Send the token through the request "Authorization" Headers
     axios
-      .get(`${API_URI}/api/events/${eventId}`, {
+      .get(`${API_URI}/api/events/${id}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
@@ -24,7 +26,7 @@ export default function EditEventPage(props) {
         setDescription(oneEvent.description);
       })
       .catch((error) => console.log(error));
-  }, [eventId]);
+  }, [id]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -35,24 +37,24 @@ export default function EditEventPage(props) {
 
     // Send the token through the request "Authorization" Headers
     axios
-      .put(`${API_URI}/api/events/${eventId}`, requestBody, {
+      .put(`${API_URI}/api/events/edit/${id}`, requestBody, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        props.history.push(`/events/${eventId}`);
+        props.history.push(`/events/${id}`);
       });
   };
 
-  const deleteEvent= () => {
+  const deleteEvent = () => {
     // Get the token from the localStorage
     const storedToken = localStorage.getItem("authToken");
 
     // Send the token through the request "Authorization" Headers
     axios
-      .delete(`${API_URI}/api/events/${eventId}`, {
+      .delete(`${API_URI}/api/events/delete/${id}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
-      .then(() => props.history.push("/events"))
+      .then(() => history.push("/events"))
       .catch((err) => console.log(err));
   };
 

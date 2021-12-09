@@ -17,7 +17,10 @@ function EventsListPage() {
       .get(`${API_URI}/api/events`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
-      .then((response) => setEvents(response.data))
+      .then((response) => {
+        console.log("response: ", response)
+        setEvents(response.data)
+      })
       .catch((error) => console.log(error));
   };
 

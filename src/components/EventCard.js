@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 function EventCard({ _id, icon, title, eventDate, description, attendees, location}) {
   return (
     <div className="EventCard card" style={{ maxWidth: "400px" }}>
-      <Link to={`/event/${_id}`}>
+      <Link to={`/events/${_id}`}>
         <h3>
-          {icon}
+          <img src={icon} alt="Event Icon" width="25px" />
           {title}
         </h3>
       </Link>
