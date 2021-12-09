@@ -15,17 +15,21 @@ function EditProfilePage(props) {
   const {user} = useContext(AuthContext)
   
   useEffect(() => {
-    const { firstName, lastName, description } = user
-    setFormState({
-      firstName: firstName,
-      lastName: lastName,
-      description: description
-    })
-  }, [user]);
+    if (user){
+      axios.get(`${API_URI}/api/users/${user._id}`)
+      .then(response=>{
+        const { firstName, lastName, description } = response.data.data
+        setFormState({
+          firstName: firstName,
+          lastName: lastName,
+          description: description
+        })
+      })
+    }
+  }, [user])
 
   const handleInput = (e) => {
     setFormState({...formState, [e.target.name]: e.target.value})
-    console.log(formState)
   }
 
   const handleFormSubmit = (e) => {
@@ -35,8 +39,7 @@ function EditProfilePage(props) {
     const requestBody = { firstName, lastName, description };
 
     // Get the token from the localStorage
-    const storedToken = localStorage.getItem("authToken");
-    console.log(storedToken)
+    // const storedToken = localStorage.getItem("authToken");
 
     // Send the token through the request "Authorization" Headers
     // axios
@@ -47,11 +50,10 @@ function EditProfilePage(props) {
     //     props.history.push(`/projects/${userId}`);
     //   }); 
     axios
-       .put(`${API_URI}/api/users/${user._id}/edit`, requestBody)
+      .put(`${API_URI}/api/users/${user._id}`, requestBody)
       .then((response) => {
         props.history.push(`/`);
       }); 
-      console.log('form submitted')
   };
 
   const deleteUser = () => {
@@ -65,7 +67,11 @@ function EditProfilePage(props) {
       })
       .then(() => props.history.push("/"))
       .catch((err) => console.log(err)); */
-      console.log('delete user')
+      axios
+      .delete(`${API_URI}/api/users/${user._id}`)
+      .then((response) => {
+        props.history.push(`/`);
+      });
   };
 
   return (
