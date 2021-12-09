@@ -1,84 +1,99 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import {AuthContext} from "../context/auth.context"
 import axios from "axios";
 
 const API_URI = process.env.REACT_APP_API_URI;
 
 function EditProfilePage(props) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const projectId = props.match.params.id;
-
+  const [formState, setFormState] = useState({
+    firstName: '',
+    lastName: '',
+    description: ''
+  });
+  // const userId = props.match.params.id;
+  
+  const {user} = useContext(AuthContext)
+  
   useEffect(() => {
-    // Get the token from the localStorage
-    const storedToken = localStorage.getItem("authToken");
+    const { firstName, lastName, description } = user
+    setFormState({
+      firstName: firstName,
+      lastName: lastName,
+      description: description
+    })
+  }, [user]);
 
-    // Send the token through the request "Authorization" Headers
-    axios
-      .get(`${API_URI}/api/projects/${projectId}`, {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      })
-      .then((response) => {
-        const oneProject = response.data;
-        setTitle(oneProject.title);
-        setDescription(oneProject.description);
-      })
-      .catch((error) => console.log(error));
-  }, [projectId]);
+  const handleInput = (e) => {
+    setFormState({...formState, [e.target.name]: e.target.value})
+    console.log(formState)
+  }
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    const requestBody = { title, description };
+    // Get info from the form 
+    const { firstName, lastName, description } = formState
+    const requestBody = { firstName, lastName, description };
 
     // Get the token from the localStorage
     const storedToken = localStorage.getItem("authToken");
+    console.log(storedToken)
 
     // Send the token through the request "Authorization" Headers
-    axios
-      .put(`${API_URI}/api/projects/${projectId}`, requestBody, {
+    /* axios
+      .put(`${API_URI}/api/users/${user._id}`, requestBody, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        props.history.push(`/projects/${projectId}`);
-      });
+        props.history.push(`/projects/${userId}`);
+      });  */
+      console.log('form submitted')
   };
 
-  const deleteProject = () => {
-    // Get the token from the localStorage
+  const deleteUser = () => {
+    /* // Get the token from the localStorage
     const storedToken = localStorage.getItem("authToken");
 
     // Send the token through the request "Authorization" Headers
     axios
-      .delete(`${API_URI}/api/projects/${projectId}`, {
+      .delete(`${API_URI}/api/users/${user._id}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
-      .then(() => props.history.push("/projects"))
-      .catch((err) => console.log(err));
+      .then(() => props.history.push("/"))
+      .catch((err) => console.log(err)); */
+      console.log('delete user')
   };
 
   return (
     <div className="EditProjectPage">
-      <h3>Edit the Project</h3>
+      <h3>Edit Profile - {user.username}</h3>
 
       <form onSubmit={handleFormSubmit}>
-        <label>Title:</label>
+        <label>First Name:</label>
         <input
           type="text"
-          name="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          name="firstName"
+          value={formState.firstName}
+          onChange={handleInput}
+        />
+
+        <label>Last Name:</label>
+        <textarea
+          name="lastName"
+          value={formState.lastName}
+          onChange={handleInput}
         />
 
         <label>Description:</label>
         <textarea
           name="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={formState.description}
+          onChange={handleInput}
         />
 
-        <button type="submit">Update Project</button>
+        <button type="submit">Update Profile</button>
       </form>
 
-      <button onClick={deleteProject}>Delete Project</button>
+      <button onClick={deleteUser}>Delete Account</button>
     </div>
   );
 }
