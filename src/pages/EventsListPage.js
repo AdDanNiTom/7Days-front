@@ -6,7 +6,7 @@ import EventCard from "../components/EventCard";
 const API_URI = process.env.REACT_APP_API_URI;
 
 function EventsListPage() {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState(null);
 
   const getAllEvents = () => {
     // Get the token from the localStorage
@@ -32,9 +32,11 @@ function EventsListPage() {
 
   return (
     <div className="EventsListPage">
-    {events.map((event) => (
-        <EventCard key={event._id} {...event} />
-      ))}
+    {events && events.map((event) =>  {
+      console.log("event hiiii: ", event)
+      return <EventCard key={event._id} {...event} />
+    }
+    )}
       <AddEvent refreshEvents={getAllEvents} />
     </div>
   );

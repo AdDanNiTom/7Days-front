@@ -33,9 +33,22 @@ export default function EventDetailsPage(props) {
   return (
     <div className="EventDetails">
       {event && (
-        <div>
-        <EventCard key={id} {...event} />
-        </div>
+        <div className="Event Details" style={{ maxWidth: "400px" }}>
+      <Link to={`/events/${event._id}`}>
+        <h3>
+          <img src={event.icon} alt="Event Icon" width="25px" />
+          {event.title}
+        </h3>
+      </Link>
+      
+     { event.owner ? <p>Created by: {event.owner.username}</p> : <p>Error: No owner for this event.</p>}
+      <p>Date: {event.eventDate}</p>
+      <p>Description: {event.description}</p>
+      <p>Location: {event.location}</p>
+      <p>Atendees: {event.attendees}</p>
+      <p>Icon: {event.icon}</p>
+      <p>Max Atendees: {event.maxAtendees}</p>
+    </div>
       )}
 
       <Link to="/events">
