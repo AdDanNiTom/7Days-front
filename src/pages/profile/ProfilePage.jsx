@@ -1,11 +1,11 @@
 import { useState, useContext, useEffect } from "react";
-import { AuthContext } from "../context/auth.context";
+import { AuthContext } from "../../context/auth.context";
 import { Link } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 const API_URI = process.env.REACT_APP_API_URI;
 // We are deconstructing props object directly in the parentheses of the function
-export default function Profile({
+export default function ProfilePage({
   _id,
   profilePhoto,
   username,
@@ -37,11 +37,11 @@ export default function Profile({
             <div>
               <img src={loggedUser.profilePhoto} alt="Profile" />
             </div>
-              <p>@{loggedUser.username}</p>
-              <p>
-                {loggedUser.firstName} {loggedUser.lastName}
-              </p>
-              <p>{loggedUser.biography}</p>
+            <p>@{loggedUser.username}</p>
+            <p>
+              {loggedUser.firstName} {loggedUser.lastName}
+            </p>
+            <p>{loggedUser.biography}</p>
             <Link to="/profile/edit">
               <button>Edit profile</button>
             </Link>

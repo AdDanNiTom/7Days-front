@@ -28,7 +28,7 @@ textarea {
   margin: 10px;
 }
 
-nav {
+/* nav {
   background: #515f7d;
   color: white;
   padding: 0px 20px;
@@ -42,7 +42,7 @@ nav li {
   color: white;
   font-size: 24px;
   font-weight: 600;
-}
+} */
 
 .card {
   width: 400px;
@@ -99,3 +99,5 @@ nav li {
 .AddEvent button {
   display: block;
 }
+
+/* NAVBAR */
