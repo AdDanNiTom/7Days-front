@@ -15,6 +15,7 @@ function HomePage(props) {
       axios.get(`${API_URI}/api/users/${user._id}`)
       .then(response=>{
         setLoggedUser(response.data.data)
+        console.log(response.data.data)
       })
     }
   }, [user])
