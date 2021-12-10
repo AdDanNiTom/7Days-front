@@ -99,3 +99,15 @@ nav li {
 .AddEvent button {
   display: block;
 }
+
+.minimap {
+  width: 90%;
+  height: 300px;
+  border: 1px solid black;
+  background-color: #ffffff
+}
+
+.title {
+  background-color: white;
+  border: 1px solid black;
+}
