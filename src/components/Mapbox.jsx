@@ -66,14 +66,18 @@ function Mapbox() {
       longitude={2.183596863159949}
       offsetLeft={(-viewport.zoom * 5) / 2}
       offsetTop={-viewport.zoom * 5}
-    >
-      <div className="title">You're here!</div>
+    ><div>
+      <p
+        className="title"
+      >
+        You're here!
+      </p>
       <img
         src="https://data.whicdn.com/images/152926369/original.gif"
         alt="location"
         height={viewport.zoom * 5}
         width={viewport.zoom * 5}
-      />
+      /></div>
     </Marker>
   );
   //   const geo = navigator.geolocation.getCurrentPosition()
@@ -101,7 +105,13 @@ function Mapbox() {
                   offsetLeft={(-viewport.zoom * 5) / 2}
                   offsetTop={-viewport.zoom * 5}
                 >
-                  <p className="title">{event.title}</p>
+                  <p
+                    className="title"
+                    height={viewport.zoom * 5}
+                    width={viewport.zoom * 5}
+                  >
+                    {event.title}
+                  </p>
                   <img
                     src="https://user-images.githubusercontent.com/274624/98246874-2e18a800-1f73-11eb-8583-f2c1f7d293f0.gif"
                     alt="icon"
