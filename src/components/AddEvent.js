@@ -17,14 +17,13 @@ export default function AddEvent(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const requestBody = { title, description, owner: user._id, icon, eventDate, maxAtendees };
-    console.log("requestBody (frontend):",requestBody)
 
     // Get the token from the localStorage
     const storedToken = localStorage.getItem("authToken");
 
     // Send the token through the request "Authorization" Headers
     axios
-      .post(`${API_URI}/api/events/new`, requestBody, {
+      .post(`${API_URI}/api/events`, requestBody, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
