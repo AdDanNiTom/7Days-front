@@ -2,6 +2,8 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
 import ReactMapGL, { Marker } from "react-map-gl";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const API_URI = process.env.REACT_APP_API_URI;
 
@@ -9,7 +11,7 @@ export default function AddEvent(props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [icon, setIcon] = useState("");
-  const [eventDate, setEventDate] = useState("");
+  const [eventDate, setEventDate] = useState(new Date());
   const [maxAtendees, setMaxAtendees] = useState("");
   const [location, setLocation] = useState("");
   const [viewport, setViewport] = useState({
@@ -88,11 +90,14 @@ export default function AddEvent(props) {
           onChange={(e) => setIcon(e.target.value)}
         />
         <label>Event Date:</label>
-        <input
-          type="date"
+        <DatePicker
+          selected={eventDate}
+          onChange={(date) => setEventDate(date)}
           name="eventDate"
           value={eventDate}
-          onChange={(e) => setEventDate(e.target.value)}
+          minDate={new Date()}
+          maxDate={new Date(new Date().setDate(new Date().getDate()+6))}
+          dateFormat="dd/MM/yyyy"
         />
         <label>Max Atendees:</label>
         <input
