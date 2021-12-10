@@ -3,7 +3,7 @@ import NavbarItem from "./NavbarItem";
 function Navbar() {
   const svgSize = 20
   return (
-    <nav className="navbar position-fixed bottom-0 w-100 navbar-dark bg-dark" >
+    <nav className="navbar position-fixed zindex-fixed bottom-0 w-100 navbar-dark bg-dark" style={{zIndex: 3}} >
           <ul className="nav justify-content-evenly w-100">
           <NavbarItem text='Map' page='maps'>
           <svg
