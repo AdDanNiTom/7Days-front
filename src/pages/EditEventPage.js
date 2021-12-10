@@ -21,7 +21,7 @@ export default function EditEventPage(props) {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        const oneEvent = response.data;
+        const oneEvent = response.data.data;
         setTitle(oneEvent.title);
         setDescription(oneEvent.description);
       })
@@ -37,7 +37,7 @@ export default function EditEventPage(props) {
 
     // Send the token through the request "Authorization" Headers
     axios
-      .put(`${API_URI}/api/events/edit/${id}`, requestBody, {
+      .put(`${API_URI}/api/events/${id}`, requestBody, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
@@ -51,7 +51,7 @@ export default function EditEventPage(props) {
 
     // Send the token through the request "Authorization" Headers
     axios
-      .delete(`${API_URI}/api/events/delete/${id}`, {
+      .delete(`${API_URI}/api/events/${id}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then(() => history.push("/events"))
