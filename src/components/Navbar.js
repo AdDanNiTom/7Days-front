@@ -15,6 +15,9 @@ function Navbar() {
 -
       {isLoggedIn
         ? (<>
+            <Link to="/maps">
+              <button>Maps</button>
+            </Link>
             <Link to="/events">
               <button>Events</button>
             </Link>
