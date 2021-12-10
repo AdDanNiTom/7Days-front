@@ -31,7 +31,7 @@ function EventsListPage() {
   }, []);
 
   return (
-    <div className="EventsListPage">
+    <div className="container">
     {events && events.map((event) =>  {
       console.log("event hiiii: ", event)
       return <EventCard key={event._id} {...event} />

@@ -17,7 +17,6 @@ import AnonRoute from "./components/AnonRoute";        // <== IMPORT
 function App() {
   return (
     <div className="App">
-      <Navbar />
 
       <Switch>      
         <Route exact path="/" component={HomePage} />
@@ -34,6 +33,7 @@ function App() {
         <AnonRoute exact path="/login" component={LoginPage} />
 
       </Switch>
+      <Navbar />
     </div>
   );
 }
