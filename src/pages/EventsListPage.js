@@ -19,7 +19,7 @@ function EventsListPage() {
       })
       .then((response) => {
         console.log("response: ", response)
-        setEvents(response.data)
+        setEvents(response.data.data)
       })
       .catch((error) => console.log(error));
   };

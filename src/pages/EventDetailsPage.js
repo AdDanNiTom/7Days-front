@@ -20,7 +20,7 @@ export default function EventDetailsPage(props) {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        const oneEvent = response.data;
+        const oneEvent = response.data.data;
         setEvent(oneEvent);
       })
       .catch((error) => console.log(error));
