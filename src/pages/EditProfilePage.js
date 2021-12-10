@@ -8,7 +8,7 @@ function EditProfilePage(props) {
   const [formState, setFormState] = useState({
     firstName: '',
     lastName: '',
-    description: ''
+    biography: ''
   });
   // const userId = props.match.params.id;
   
@@ -18,11 +18,11 @@ function EditProfilePage(props) {
     if (user){
       axios.get(`${API_URI}/api/users/${user._id}`)
       .then(response=>{
-        const { firstName, lastName, description } = response.data.data
+        const { firstName, lastName, biography } = response.data.data
         setFormState({
           firstName: firstName,
           lastName: lastName,
-          description: description
+          biography: biography
         })
       })
     }
@@ -35,8 +35,8 @@ function EditProfilePage(props) {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     // Get info from the form 
-    const { firstName, lastName, description } = formState
-    const requestBody = { firstName, lastName, description };
+    const { firstName, lastName, biography } = formState
+    const requestBody = { firstName, lastName, biography };
 
     // Get the token from the localStorage
     // const storedToken = localStorage.getItem("authToken");
@@ -94,10 +94,10 @@ function EditProfilePage(props) {
           onChange={handleInput}
         />
 
-        <label>Description:</label>
+        <label>Biography:</label>
         <textarea
-          name="description"
-          value={formState.description}
+          name="biography"
+          value={formState.biography}
           onChange={handleInput}
         />
 
