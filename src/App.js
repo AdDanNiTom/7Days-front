@@ -1,17 +1,18 @@
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar/Navbar";
 import HomePage from "./pages/HomePage";
 import EventsListPage from "./pages/EventsListPage";
 import EventDetailsPage from "./pages/EventDetailsPage";
 import EditEventPage from "./pages/EditEventPage";
-import Profile from "./components/Profile";
+import ProfilePage from "./pages/profile/ProfilePage";
+import EditProfilePage from "./pages/profile/EditProfilePage";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import MapboxPage from "./pages/MapboxPage";
 import PrivateRoute from "./components/PrivateRoute";    // <== IMPORT
 import AnonRoute from "./components/AnonRoute";        // <== IMPORT
-import EditProfilePage from "./pages/EditProfilePage";
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
         <PrivateRoute exact path="/events/:id" component={EventDetailsPage} />
         <PrivateRoute exact path="/events/edit/:id" component={EditEventPage} />
         <PrivateRoute exact path="/maps" component={MapboxPage} />
-        <PrivateRoute exact path="/profile" component={Profile} />
+        <PrivateRoute exact path="/profile" component={ProfilePage} />
         <PrivateRoute exact path="/profile/edit" component={EditProfilePage} />
         
         <AnonRoute exact path="/signup" component={SignupPage} />
