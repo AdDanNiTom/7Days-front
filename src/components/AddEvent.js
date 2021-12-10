@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
+import {AuthContext} from "../context/auth.context"
+
 
 const API_URI = process.env.REACT_APP_API_URI;
 
@@ -10,10 +12,12 @@ export default function AddEvent(props) {
   const [maxAtendees, setMaxAtendees] = useState("");
   const [eventDate, setEventDate] = useState("");
 
+  const {user} = useContext(AuthContext)
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const requestBody = { title, description, icon, eventDate, maxAtendees };
-    console.log("requestBody:",requestBody)
+    const requestBody = { title, description, owner: user._id, icon, eventDate, maxAtendees };
+    console.log("requestBody (frontend):",requestBody)
 
     // Get the token from the localStorage
     const storedToken = localStorage.getItem("authToken");
