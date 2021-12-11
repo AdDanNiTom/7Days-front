@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import EventCard from "../components/EventCard";
 
+
 const API_URI = process.env.REACT_APP_API_URI;
 
 export default function EventDetailsPage(props) {
@@ -45,7 +46,9 @@ export default function EventDetailsPage(props) {
       <p>Date: {event.eventDate}</p>
       <p>Description: {event.description}</p>
       <p>Location: {event.location}</p>
-      <p>Atendees: {event.attendees}</p>
+      <ul>Attendees: {event.attendees.map((attendee)=>{
+        return <li>{attendee.username}</li>
+      })}</ul>
       <p>Icon: {event.icon}</p>
       <p>Max Atendees: {event.maxAtendees}</p>
     </div>
