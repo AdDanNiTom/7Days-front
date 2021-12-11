@@ -1,11 +1,16 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
-import ReactMapGL, { Marker } from "react-map-gl";
+import ReactMapGL from "react-map-gl";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Geocode from "react-geocode";
+
+Geocode.setLanguage("en");
 
 const API_URI = process.env.REACT_APP_API_URI;
+Geocode.setApiKey("AIzaSyBfG1BvX0ET5AGbzG9FvUiBqpA_S4AeXhk");
+
 
 export default function AddEvent(props) {
   const [title, setTitle] = useState("");
@@ -14,6 +19,7 @@ export default function AddEvent(props) {
   const [eventDate, setEventDate] = useState(new Date());
   const [maxAtendees, setMaxAtendees] = useState("");
   const [location, setLocation] = useState("");
+  const [address, setAddress] = useState("");
   const [viewport, setViewport] = useState({
     latitude: 41.38,
     longitude: 2.16,
@@ -23,7 +29,23 @@ export default function AddEvent(props) {
     pitch: 15,
   });
 
+  //CONTEXT
   const { user } = useContext(AuthContext);
+
+
+
+  useEffect(() => {
+    Geocode.fromLatLng(location[1], location[0]).then(
+      (response) => {
+        const geoAddress = response.results[0].formatted_address;
+        console.log(geoAddress);
+        setAddress(geoAddress)
+      },
+      (error) => {
+        console.error(error);
+      }
+    )
+  }, [location]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,6 +57,7 @@ export default function AddEvent(props) {
       eventDate,
       maxAtendees,
       location,
+      address
     };
 
     // Get the token from the localStorage
@@ -96,7 +119,7 @@ export default function AddEvent(props) {
           name="eventDate"
           value={eventDate}
           minDate={new Date()}
-          maxDate={new Date(new Date().setDate(new Date().getDate()+6))}
+          maxDate={new Date(new Date().setDate(new Date().getDate() + 6))}
           dateFormat="dd/MM/yyyy"
         />
         <label>Max Atendees:</label>
@@ -106,9 +129,10 @@ export default function AddEvent(props) {
           value={maxAtendees}
           onChange={(e) => setMaxAtendees(e.target.value)}
         />
-        <label>Location:</label> <br />
+        {/* <label>Location:</label> <br />
         <div>Latitude: {location[0]}</div>
-        <div>Longitude:{location[1]}</div>
+        <div>Longitude:{location[1]}</div> */}
+        <div>Address: {address}</div>
         <br />
         <div className="minimap">
           <ReactMapGL

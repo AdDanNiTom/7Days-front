@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+
 import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
 import { Row, Button, Collapse, Card } from "react-bootstrap";
 import { GeoAlt, CaretUp, CaretDown } from "react-bootstrap-icons";
+
 
 const API_URI = process.env.REACT_APP_API_URI;
 
@@ -29,6 +30,7 @@ function EventCard({
       if (attendee._id === user._id) setIsAttending(true);
     });
   }, [isAttending]);
+  
   const handleJoinClick = (e) => {
     e.preventDefault();
     // Get the token from the localStorage
