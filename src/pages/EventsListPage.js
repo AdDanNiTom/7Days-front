@@ -18,7 +18,6 @@ function EventsListPage() {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        console.log("response: ", response)
         setEvents(response.data.data)
       })
       .catch((error) => console.log(error));
@@ -33,11 +32,10 @@ function EventsListPage() {
   return (
     <div className="EventsListPage">
     {events && events.map((event) =>  {
-      console.log("event hiiii: ", event)
       return <EventCard key={event._id} {...event} />
     }
     )}
-      <AddEvent refreshEvents={getAllEvents} />
+     <AddEvent refreshEvents={getAllEvents} />
     </div>
   );
 }
