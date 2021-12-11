@@ -25,7 +25,7 @@ function EventCard({
         </Card.Header>
         <Card.Body>
           <Card.Title>
-            {eventDate ? typeof eventDate : "unknown date"}
+            {eventDate ? new Date(eventDate).toDateString() : "unknown date"}
           </Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
             {owner ? "@" + owner.username : "Anonymous"}
