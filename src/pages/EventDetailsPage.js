@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
-import EventCard from "../components/EventCard";
 
 
 const API_URI = process.env.REACT_APP_API_URI;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import AddEvent from "../components/AddEvent";
-import EventCard from "../components/EventCard";
+import EventCard from "../components/EventCard.jsx";
 
 const API_URI = process.env.REACT_APP_API_URI;
 
@@ -30,7 +30,7 @@ function EventsListPage() {
   }, []);
 
   return (
-    <div className="EventsListPage">
+    <div className="container">
     {events && events.map((event) =>  {
       return <EventCard key={event._id} {...event} />
     }
