@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
 import HomePage from "./pages/HomePage";
-import EventsListPage from "./pages/EventsListPage";
+import EventsListPage from "./pages/events/EventsListPage";
 import EventDetailsPage from "./pages/EventDetailsPage";
 import EditEventPage from "./pages/EditEventPage";
 import ProfilePage from "./pages/profile/ProfilePage";

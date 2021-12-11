@@ -68,6 +68,7 @@ export default function AddEvent(props) {
       <h3>Add Event</h3>
 
       <form onSubmit={handleSubmit}>
+        <button type="submit">Submit</button>
         <label>Title:</label>
         <input
           type="text"
@@ -96,7 +97,7 @@ export default function AddEvent(props) {
           name="eventDate"
           value={eventDate}
           minDate={new Date()}
-          maxDate={new Date(new Date().setDate(new Date().getDate()+6))}
+          maxDate={new Date(new Date().setDate(new Date().getDate() + 6))}
           dateFormat="dd/MM/yyyy"
         />
         <label>Max Atendees:</label>
@@ -122,7 +123,6 @@ export default function AddEvent(props) {
           ></ReactMapGL>
         </div>{" "}
         <br />
-        <button type="submit">Submit</button>
       </form>
     </div>
   );
