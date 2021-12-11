@@ -1,7 +1,9 @@
 import { useState, useContext } from "react";
 import axios from "axios";
-import {AuthContext} from "../context/auth.context"
-
+import { AuthContext } from "../context/auth.context";
+import ReactMapGL, { Marker } from "react-map-gl";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const API_URI = process.env.REACT_APP_API_URI;
 
@@ -9,22 +11,38 @@ export default function AddEvent(props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [icon, setIcon] = useState("");
+  const [eventDate, setEventDate] = useState(new Date());
   const [maxAtendees, setMaxAtendees] = useState("");
-  const [eventDate, setEventDate] = useState("");
+  const [location, setLocation] = useState("");
+  const [viewport, setViewport] = useState({
+    latitude: 41.38,
+    longitude: 2.16,
+    height: window.innerHeight,
+    width: window.innerWidth,
+    zoom: 11,
+    pitch: 15,
+  });
 
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const requestBody = { title, description, owner: user._id, icon, eventDate, maxAtendees };
-    console.log("requestBody (frontend):",requestBody)
+    const requestBody = {
+      title,
+      description,
+      owner: user._id,
+      icon,
+      eventDate,
+      maxAtendees,
+      location,
+    };
 
     // Get the token from the localStorage
     const storedToken = localStorage.getItem("authToken");
 
     // Send the token through the request "Authorization" Headers
     axios
-      .post(`${API_URI}/api/events/new`, requestBody, {
+      .post(`${API_URI}/api/events`, requestBody, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
@@ -39,6 +57,12 @@ export default function AddEvent(props) {
       .catch((error) => console.log(error));
   };
 
+  const onClickMap = (e) => {
+    e.preventDefault();
+    console.log(e.lngLat);
+    setLocation(e.lngLat);
+  };
+
   return (
     <div className="AddEvent">
       <h3>Add Event</h3>
@@ -51,7 +75,6 @@ export default function AddEvent(props) {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-
         <label>Description:</label>
         <textarea
           type="text"
@@ -67,11 +90,14 @@ export default function AddEvent(props) {
           onChange={(e) => setIcon(e.target.value)}
         />
         <label>Event Date:</label>
-        <input
-          type="date"
+        <DatePicker
+          selected={eventDate}
+          onChange={(date) => setEventDate(date)}
           name="eventDate"
           value={eventDate}
-          onChange={(e) => setEventDate(e.target.value)}
+          minDate={new Date()}
+          maxDate={new Date(new Date().setDate(new Date().getDate()+6))}
+          dateFormat="dd/MM/yyyy"
         />
         <label>Max Atendees:</label>
         <input
@@ -80,11 +106,24 @@ export default function AddEvent(props) {
           value={maxAtendees}
           onChange={(e) => setMaxAtendees(e.target.value)}
         />
-
+        <label>Location:</label> <br />
+        <div>Latitude: {location[0]}</div>
+        <div>Longitude:{location[1]}</div>
+        <br />
+        <div className="minimap">
+          <ReactMapGL
+            {...viewport}
+            mapboxApiAccessToken="pk.eyJ1IjoiYWRyaWFuYXJhbmRhIiwiYSI6ImNrd3hmdzZzbDBjemQydnBsaTllN215dmoifQ.lSWVa5b6Z14zxBXLkER_xQ"
+            mapStyle="mapbox://styles/mapbox/streets-v10"
+            width="100%"
+            height="100%"
+            onViewportChange={(viewport) => setViewport(viewport)}
+            onClick={onClickMap}
+          ></ReactMapGL>
+        </div>{" "}
+        <br />
         <button type="submit">Submit</button>
       </form>
     </div>
   );
 }
-
-

@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import {AuthContext} from "../context/auth.context"
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 const API_URI = process.env.REACT_APP_API_URI;
 
@@ -24,6 +25,8 @@ function HomePage(props) {
     <div>
       <h1>7Days</h1>
       <p>{loggedUser ?  loggedUser.username : "noone logged in"}</p>
+      <Link to='/login'>Login</Link>
+      <Link to='/signup'>Signup</Link>
     </div>
   );
 }
