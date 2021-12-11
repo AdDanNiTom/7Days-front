@@ -24,25 +24,20 @@ function EventCard({
           <Button>Join</Button>
         </Card.Header>
         <Card.Body>
-          <Card.Title>{owner ? "@" + owner.username : "Anonymous"}</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">
+          <Card.Title>
             {eventDate ? typeof eventDate : "unknown date"}
+          </Card.Title>
+          <Card.Subtitle className="mb-2 text-muted">
+            {owner ? "@" + owner.username : "Anonymous"}
           </Card.Subtitle>
-          <p>Location: {location}</p>
-          <p>{description ? description : "No description available"}</p>
-          <p>{attendees}</p>
 
           <Collapse in={open}>
             <div id="example-collapse-text">
-              <div className="card card-body">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </div>
+              <Card.Text>Location: {location}</Card.Text>
+              <Card.Text>
+                {description ? description : "No description available"}
+              </Card.Text>
+              <Card.Text>{attendees}</Card.Text>
             </div>
           </Collapse>
           <Card.Link
