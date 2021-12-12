@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import ReactMapGL, { Marker } from "react-map-gl";
 import axios from "axios";
+import { useQuery } from "react-query";
 
 function Mapbox() {
-  const [events, setEvents] = useState(null);
+  // const [events, setEvents] = useState(null);
   const [viewport, setViewport] = useState({
     latitude: 41.38,
     longitude: 2.16,
@@ -14,46 +15,36 @@ function Mapbox() {
   });
 
   const API_URI = process.env.REACT_APP_API_URI;
+  const storedToken = localStorage.getItem("authToken");
 
-  const getAllEvents = () => {
-    // Get the token from the localStorage
-    const storedToken = localStorage.getItem("authToken");
-
-    // Send the token through the request "Authorization" Headers
-    axios
-      .get(`${API_URI}/api/events`, {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      })
-      .then((response) => {
-        console.log("response: ", response);
-        setEvents(response.data.data);
-      })
-      .catch((error) => console.log("this isss:", error));
+  const fetchEvents = async () => {
+    const res = await axios.get(`${API_URI}/api/events`, {
+      headers: { Authorization: `Bearer ${storedToken}` },
+    });
+    return res.data.data;
   };
 
-  // We set this effect will run only once, after the initial render
-  // by setting the empty dependency array - []
-  useEffect(() => {
-    getAllEvents();
-  }, []);
+  const { data, isLoading, isError } = useQuery("events", fetchEvents);
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((pos) => {
-      setViewport({
-        ...viewport,
-        latitude: pos.coords.latitude,
-        longitude: pos.coords.longitude,
-      });
-    });
-  }, []);
+  // const currentCoord = []
+  // useEffect(() => {
+  //   navigator.geolocation.getCurrentPosition((pos) => {
+  //     currentCoord.push(pos.coords.latitude, pos.coords.longitude)
+  //     setViewport({
+  //       ...viewport,
+  //       latitude: pos.coords.latitude,
+  //       longitude: pos.coords.longitude,
+  //     });
+  //   });
+  // }, []);
 
-  let coordinates = {};
-  navigator.geolocation.getCurrentPosition((pos) => {
-    coordinates = {
-      latitude: pos.coords.latitude,
-      longitude: pos.coords.longitude,
-    };
-  });
+  // let coordinates = {};    IN CASE WE WANT CURRENT POSITION
+  // navigator.geolocation.getCurrentPosition((pos) => {
+  //   coordinates = {
+  //     latitude: pos.coords.latitude,
+  //     longitude: pos.coords.longitude,
+  //   };
+  // });
 
   const onClickMap = (e) => {
     e.preventDefault();
@@ -66,21 +57,28 @@ function Mapbox() {
       longitude={2.183596863159949}
       offsetLeft={(-viewport.zoom * 5) / 2}
       offsetTop={-viewport.zoom * 5}
-    ><div>
-      <p
-        className="title"
-      >
-        You're here!
-      </p>
+    >
       <img
-        src="https://data.whicdn.com/images/152926369/original.gif"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Simpleicons_Places_map-marker-point.svg/2048px-Simpleicons_Places_map-marker-point.svg.png"
         alt="location"
         height={viewport.zoom * 5}
         width={viewport.zoom * 5}
-      /></div>
+      />
     </Marker>
   );
   //   const geo = navigator.geolocation.getCurrentPosition()
+
+  if (isLoading) {
+    return (
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only"></span>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return <h1>ERROR. COULDN'T RETRIEVE DATA</h1>;
+  }
 
   return (
     <ReactMapGL
@@ -93,36 +91,35 @@ function Mapbox() {
       onClick={onClickMap}
     >
       {marker}
-      {events !== null
-        ? events.map((event) => {
-            console.log("loaded!", event.location);
-            if (event.location.length === 2) {
-              return (
-                <Marker
-                  key={event.title}
-                  longitude={event.location[0]}
-                  latitude={event.location[1]}
-                  offsetLeft={(-viewport.zoom * 5) / 2}
-                  offsetTop={-viewport.zoom * 5}
-                >
-                  <p
-                    className="title"
-                    height={viewport.zoom * 5}
-                    width={viewport.zoom * 5}
-                  >
-                    {event.title}
-                  </p>
-                  <img
-                    src="https://user-images.githubusercontent.com/274624/98246874-2e18a800-1f73-11eb-8583-f2c1f7d293f0.gif"
-                    alt="icon"
-                    height={viewport.zoom * 5}
-                    width={viewport.zoom * 5}
-                  />
-                </Marker>
-              );
-            }
-          })
-        : console.log("not loaded")}
+      {data?.map((event) => {
+        console.log("loaded!", event.location);
+        if (event.location.length === 2) {
+          return (
+            <Marker
+              key={event.title}
+              longitude={event.location[0]}
+              latitude={event.location[1]}
+              offsetLeft={(-viewport.zoom * 5) / 2}
+              offsetTop={-viewport.zoom * 5}
+            >
+              <p
+                className="title"
+                height={viewport.zoom * 5}
+                width={viewport.zoom * 5}
+              >
+                {event.title}
+              </p>
+              <img
+                src="https://user-images.githubusercontent.com/274624/98246874-2e18a800-1f73-11eb-8583-f2c1f7d293f0.gif"
+                alt="icon"
+                height={viewport.zoom * 5}
+                width={viewport.zoom * 5}
+              />
+            </Marker>
+          );
+        }
+      })}
+      {marker}
     </ReactMapGL>
   );
 }

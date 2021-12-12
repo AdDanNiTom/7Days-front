@@ -14,10 +14,12 @@ import MapboxPage from "./pages/MapboxPage";
 import PrivateRoute from "./components/PrivateRoute";    // <== IMPORT
 import AnonRoute from "./components/AnonRoute";        // <== IMPORT
 
+
+
 function App() {
   return (
     <div className="App">
-
+      
       <Switch>      
         <Route exact path="/" component={HomePage} />
 
