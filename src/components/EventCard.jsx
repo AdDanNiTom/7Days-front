@@ -46,7 +46,9 @@ function EventCard({
         }
       )
       .then((response) => {
-        setIsAttending(!isAttending);
+        //setIsAttending(!isAttending);
+        if (isAttending === true) setIsAttending(false)
+        if (isAttending === false) setIsAttending(true)
       })
       .catch((error) => console.log(error));
   };
