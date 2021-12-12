@@ -17,9 +17,13 @@ export const fetchAllEvents = async () => {
 // GET SELECTED DAY'S EVENTS
 export const fetchSelectedDayEvents = async (key) => {
     try {
-        const res = await api.get(`/api/events/?day=${key.queryKey[1]}`);
-        return res.data.data
+        if (key.queryKey[2]) {
+        const res = await api.get(`/api/events/?day=${key.queryKey[1]}&category=${key.queryKey[2]}`);
+        return res.data.data}
         
+        else{
+        const res = await api.get(`/api/events/?day=${key.queryKey[1]}`);
+        return res.data.data}
     } catch (error) {
         console.log(error)
     }

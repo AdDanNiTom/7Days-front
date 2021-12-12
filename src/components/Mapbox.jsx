@@ -90,12 +90,10 @@ function Mapbox() {
               >
                 {event.title}
               </p>
-              <img
-                src={event.icon}
-                alt="icon"
-                height={viewport.zoom * 2}
-                width={viewport.zoom * 2}
-              />
+              <p>
+                {event.icon}
+              </p>
+              
             </Marker>
           );
         }
