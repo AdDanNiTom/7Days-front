@@ -91,6 +91,7 @@ export default function AddEvent(props) {
       <h3>Add Event</h3>
 
       <form onSubmit={handleSubmit}>
+        <button type="submit">Submit</button>
         <label>Title:</label>
         <input
           type="text"
@@ -146,7 +147,6 @@ export default function AddEvent(props) {
           ></ReactMapGL>
         </div>{" "}
         <br />
-        <button type="submit">Submit</button>
       </form>
     </div>
   );

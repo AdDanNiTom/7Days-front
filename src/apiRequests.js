@@ -13,3 +13,14 @@ export const fetchAllEvents = async () => {
     const res = await api.get(`/api/events`);
     return res.data.data
 }
+
+// GET SELECTED DAY'S EVENTS
+export const fetchSelectedDayEvents = async (key) => {
+    try {
+        const res = await api.get(`/api/events/?day=${key.queryKey[1]}`);
+        return res.data.data
+        
+    } catch (error) {
+        console.log(error)
+    }
+}
