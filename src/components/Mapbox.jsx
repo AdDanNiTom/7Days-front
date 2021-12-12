@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactMapGL, { Marker } from "react-map-gl";
-import axios from "axios";
 import { useQuery } from "react-query";
+import * as api from "../apiRequests"
 
 function Mapbox() {
   // const [events, setEvents] = useState(null);
@@ -14,37 +14,19 @@ function Mapbox() {
     pitch: 15,
   });
 
-  const API_URI = process.env.REACT_APP_API_URI;
-  const storedToken = localStorage.getItem("authToken");
+  const {data, isLoading, isError } = useQuery("events", api.fetchAllEvents);
 
-  const fetchEvents = async () => {
-    const res = await axios.get(`${API_URI}/api/events`, {
-      headers: { Authorization: `Bearer ${storedToken}` },
+  const currentCoord = []
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((pos) => {
+      currentCoord.push(pos.coords.latitude, pos.coords.longitude)
+      setViewport({
+        ...viewport,
+        latitude: pos.coords.latitude,
+        longitude: pos.coords.longitude,
+      });
     });
-    return res.data.data;
-  };
-
-  const { data, isLoading, isError } = useQuery("events", fetchEvents);
-
-  // const currentCoord = []
-  // useEffect(() => {
-  //   navigator.geolocation.getCurrentPosition((pos) => {
-  //     currentCoord.push(pos.coords.latitude, pos.coords.longitude)
-  //     setViewport({
-  //       ...viewport,
-  //       latitude: pos.coords.latitude,
-  //       longitude: pos.coords.longitude,
-  //     });
-  //   });
-  // }, []);
-
-  // let coordinates = {};    IN CASE WE WANT CURRENT POSITION
-  // navigator.geolocation.getCurrentPosition((pos) => {
-  //   coordinates = {
-  //     latitude: pos.coords.latitude,
-  //     longitude: pos.coords.longitude,
-  //   };
-  // });
+  }, []);
 
   const onClickMap = (e) => {
     e.preventDefault();
@@ -66,7 +48,6 @@ function Mapbox() {
       />
     </Marker>
   );
-  //   const geo = navigator.geolocation.getCurrentPosition()
 
   if (isLoading) {
     return (
