@@ -11,15 +11,20 @@ import SevenDays from "../../components/events/SevenDays";
 function EventsListPage() {
   // state for selecting which day's events to show, initial value is current day
   const [selectedDay, setSelectedDay] = useState(new Date().getDay());
+  const [attendingChange, setAttendingChange] = useState(false)
 
   // react-query finds events from selected day
   const { data, status } = useQuery(
-    ["dayEvents", selectedDay],
+    ["dayEvents", selectedDay,attendingChange],
     api.fetchSelectedDayEvents
   );
 
   // handle day switching
   const handleDaySwitch = (i) => setSelectedDay(i);
+
+  function changeEffect() {
+    setAttendingChange(!attendingChange)
+  }
 
   if (status === "loading") return <Loading />;
   else if (status === "error") return <Error />;
@@ -29,7 +34,7 @@ function EventsListPage() {
         <SevenDays parentCb={handleDaySwitch} selectedDay={selectedDay} />
         {data &&
           data.map((event) => {
-            return <EventCard key={event._id} {...event} />;
+            return <EventCard key={event._id} {...event} changeEffect={changeEffect} />;
           })}
         <AddEvent
           refreshEvents={() => api.fetchSelectedDayEvents(selectedDay)}
