@@ -17,6 +17,7 @@ function EventCard({
   icon,
   eventDate,
   maxAtendees,
+  changeEffect
 }) {
   const [isAttending, setIsAttending] = useState(false);
   const [open, setOpen] = useState(false);
@@ -45,10 +46,17 @@ function EventCard({
       )
       .then((response) => {
         //setIsAttending(!isAttending);
+        console.log("i'm in the 'then'")
         if (isAttending === true) setIsAttending(false);
         if (isAttending === false) setIsAttending(true);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log("i'm in the 'catch'")
+        console.log(error)
+      });
+
+      changeEffect()
+
   };
   return (
     <Row className="m-3">
@@ -56,7 +64,7 @@ function EventCard({
         <Card.Header className="d-flex justify-content-between">
           <GeoAlt size={30} />
           <Card.Title>{title}</Card.Title>
-          {isAttending && <Button onClick={handleJoinClick}>Attending</Button>}
+          {isAttending && <Button onClick={handleJoinClick} variant="danger">Leave</Button>}
           {!isAttending && <Button onClick={handleJoinClick}>Join</Button>}
         </Card.Header>
         <Card.Body>
