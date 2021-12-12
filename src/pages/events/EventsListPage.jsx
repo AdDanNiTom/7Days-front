@@ -8,14 +8,16 @@ const API_URI = process.env.REACT_APP_API_URI;
 
 function EventsListPage() {
   const [events, setEvents] = useState(null);
+  // state for selecting which day's events to show, initial value is current day
+  const [selectedDay, setSelectedDay] = useState(new Date().getDay());
 
-  const getAllEvents = () => {
+  const getSelectedDayEvents = () => {
     // Get the token from the localStorage
     const storedToken = localStorage.getItem("authToken");
 
     // Send the token through the request "Authorization" Headers
     axios
-      .get(`${API_URI}/api/events`, {
+      .get(`${API_URI}/api/events/?day=${selectedDay}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
@@ -27,17 +29,20 @@ function EventsListPage() {
   // We set this effect will run only once, after the initial render
   // by setting the empty dependency array - []
   useEffect(() => {
-    getAllEvents();
-  }, []);
+    getSelectedDayEvents();
+  }, [selectedDay]);
 
-  let selectedDay = 0;
-  let sevenDays = ["M", "T", "W", "Th", "F", "S", "Su"];
+  let sevenDays = ["Su", "M", "T", "W", "Th", "F", "S"];
 
   return (
     <div className="container">
       <Pagination>
         {sevenDays.map((oneDay, index) => (
-          <Pagination.Item key={index} active={index === selectedDay}>
+          <Pagination.Item
+            onClick={() => setSelectedDay(index)}
+            key={index}
+            active={index === selectedDay}
+          >
             {oneDay}
           </Pagination.Item>
         ))}
@@ -46,7 +51,7 @@ function EventsListPage() {
         events.map((event) => {
           return <EventCard key={event._id} {...event} />;
         })}
-      <AddEvent refreshEvents={getAllEvents} />
+      <AddEvent refreshEvents={getSelectedDayEvents} />
     </div>
   );
 }
