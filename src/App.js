@@ -13,13 +13,16 @@ import MapboxPage from "./pages/MapboxPage";
 import PrivateRoute from "./components/PrivateRoute";    // <== IMPORT
 import AnonRoute from "./components/AnonRoute";        // <== IMPORT
 import Welcome from "./pages/Welcome";
-
-
+import { useContext } from "react";
+import { AuthContext } from "./context/auth.context";
+import Error from "./components/status/Error";
 
 function App() {
+  const { error } = useContext(AuthContext);
+
   return (
     <div className="App">
-      
+      {error && <Error/>}
       <Switch>      
         <Route exact path="/" component={Welcome} />
 
