@@ -51,8 +51,8 @@ function Mapbox() {
 
   if (isLoading) {
     return (
-      <div class="spinner-border text-primary" role="status">
-        <span class="sr-only"></span>
+      <div className="spinner-border text-primary" role="status">
+        <span className="sr-only"></span>
       </div>
     );
   }
