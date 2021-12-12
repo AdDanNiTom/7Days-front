@@ -5,15 +5,7 @@ import axios from "axios";
 
 const API_URI = process.env.REACT_APP_API_URI;
 // We are deconstructing props object directly in the parentheses of the function
-export default function ProfilePage({
-  _id,
-  profilePhoto,
-  username,
-  email,
-  biography,
-  firstName,
-  lastName,
-}) {
+export default function ProfilePage() {
   const [loggedUser, setLoggedUser] = useState(null);
   const { user, logOutUser } = useContext(AuthContext);
 

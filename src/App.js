@@ -2,7 +2,6 @@ import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
-import HomePage from "./pages/HomePage";
 import EventsListPage from "./pages/events/EventsListPage";
 import EventDetailsPage from "./pages/EventDetailsPage";
 import EditEventPage from "./pages/EditEventPage";
@@ -13,6 +12,7 @@ import LoginPage from "./pages/LoginPage";
 import MapboxPage from "./pages/MapboxPage";
 import PrivateRoute from "./components/PrivateRoute";    // <== IMPORT
 import AnonRoute from "./components/AnonRoute";        // <== IMPORT
+import Welcome from "./pages/Welcome";
 
 
 
@@ -21,7 +21,7 @@ function App() {
     <div className="App">
       
       <Switch>      
-        <Route exact path="/" component={HomePage} />
+        <Route exact path="/" component={Welcome} />
 
         {/* 👇 UPDATE THE EXISTING ROUTES 👇  */}
         <PrivateRoute exact path="/events" component={EventsListPage} />
