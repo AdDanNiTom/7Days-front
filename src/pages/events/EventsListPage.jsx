@@ -13,9 +13,11 @@ function EventsListPage() {
   // state for selecting which day's events to show, initial value is current day
   const [selectedDay, setSelectedDay] = useState(new Date().getDay());
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [attendingChange, setAttendingChange] = useState(false)
   // react-query finds events from selected day
   const { data, status } = useQuery(
-    ["dayEvents", selectedDay, selectedCategory],
+    ["dayEvents", selectedDay, selectedCategory, attendingChange],
+  // react-query finds events from selected day
     api.fetchSelectedDayEvents
   );
 
@@ -23,6 +25,10 @@ function EventsListPage() {
   // handle day switching
   const handleDaySwitch = (i) => setSelectedDay(i);
   const handleCategorySwitch = (i) => setSelectedCategory(i);
+
+  function changeEffect() {
+    setAttendingChange(!attendingChange)
+  }
 
   if (status === "loading") return <Loading />;
   else if (status === "error") return <Error />;
@@ -33,7 +39,7 @@ function EventsListPage() {
         <FilterByCategory parentCb={handleCategorySwitch} selectedCategory={selectedCategory}/>
         {data &&
           data.map((event) => {
-            return <EventCard key={event._id} {...event} />;
+            return <EventCard key={event._id} {...event} changeEffect={changeEffect} />;
           })}
         <AddEvent
           refreshEvents={() => api.fetchSelectedDayEvents(selectedDay, selectedCategory)}
