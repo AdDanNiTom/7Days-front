@@ -5,6 +5,7 @@ import EventCard from "../components/EventCard.jsx";
 
 const API_URI = process.env.REACT_APP_API_URI;
 
+
 function EventsListPage() {
   const [events, setEvents] = useState(null);
 
@@ -28,6 +29,9 @@ function EventsListPage() {
   useEffect(() => {
     getAllEvents();
   }, []);
+
+
+
 
   return (
     <div className="container">
