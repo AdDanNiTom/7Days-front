@@ -105,13 +105,18 @@ export default function AddEvent(props) {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <label>Icon:</label>
-        <textarea
-          type="text"
+        <label>Category:</label>
+        <select
+          id="emoji-dropdown"
           name="icon"
-          value={icon}
-          onChange={(e) => setIcon(e.target.value)}
-        />
+          onChange={(e) => setIcon(e.target.value)}>
+          <option>Choose a category</option>
+          <option value="/emojis/Beer.png">🍺 Drinks</option>
+          <option value="/emojis/Gastronomy.png">🥘 Food</option>
+          <option value="/emojis/Football.png">⚽ Sports</option>
+          <option value="/emojis/Museum.png">🏛️ Art & Culture</option>
+          <option value="/emojis/Cinema.png">🎥 Cinema</option>
+        </select>
         <label>Event Date:</label>
         <DatePicker
           selected={eventDate}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactMapGL, { Marker } from "react-map-gl";
 import { useQuery } from "react-query";
-import * as api from "../apiRequests"
+import * as api from "../apiRequests";
 
 function Mapbox() {
   // const [events, setEvents] = useState(null);
@@ -14,12 +14,12 @@ function Mapbox() {
     pitch: 15,
   });
 
-  const {data, isLoading, isError } = useQuery("events", api.fetchAllEvents);
+  const { data, isLoading, isError } = useQuery("events", api.fetchAllEvents);
 
-  const currentCoord = []
+  const currentCoord = [];
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((pos) => {
-      currentCoord.push(pos.coords.latitude, pos.coords.longitude)
+      currentCoord.push(pos.coords.latitude, pos.coords.longitude);
       setViewport({
         ...viewport,
         latitude: pos.coords.latitude,
@@ -91,10 +91,10 @@ function Mapbox() {
                 {event.title}
               </p>
               <img
-                src="https://user-images.githubusercontent.com/274624/98246874-2e18a800-1f73-11eb-8583-f2c1f7d293f0.gif"
+                src={event.icon}
                 alt="icon"
-                height={viewport.zoom * 5}
-                width={viewport.zoom * 5}
+                height={viewport.zoom * 2}
+                width={viewport.zoom * 2}
               />
             </Marker>
           );
