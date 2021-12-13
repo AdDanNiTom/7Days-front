@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ReactMapGL, { Marker } from "react-map-gl";
+import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import { useQuery } from "react-query";
 import * as api from "../apiRequests";
 
@@ -49,6 +49,8 @@ function Mapbox() {
     </Marker>
   );
 
+  const [selectedEvent, setSelectedEvent] = useState(null)
+
   if (isLoading) {
     return (
       <div className="spinner-border text-primary" role="status">
@@ -60,6 +62,7 @@ function Mapbox() {
   if (isError) {
     return <h1>ERROR. COULDN'T RETRIEVE DATA</h1>;
   }
+
 
   return (
     <ReactMapGL
@@ -83,21 +86,39 @@ function Mapbox() {
               offsetLeft={(-viewport.zoom * 5) / 2}
               offsetTop={-viewport.zoom * 5}
             >
-              <p
-                className="title"
-                height={viewport.zoom * 5}
-                width={viewport.zoom * 5}
-              >
-                {event.title}
-              </p>
-              <p>
+              <button
+              className="icon-button"
+              onClick={(e) => {
+                e.preventDefault()
+                setSelectedEvent(event)
+              }}
+
+                >
                 {event.icon}
-              </p>
+              </button>
               
             </Marker>
           );
         }
       })}
+
+      {selectedEvent ? (
+        <Popup
+        latitude={selectedEvent.location[1]}
+        longitude={selectedEvent.location[0]}
+        onClose={() =>{
+          setSelectedEvent(null);
+        }}>
+          <div>
+          <br/>
+            <h4>{selectedEvent.icon} {selectedEvent.title}</h4>
+            <p>{selectedEvent.description}</p>
+            <p>{selectedEvent.date.fullDate}</p>
+          </div>
+        </Popup>
+      ) : null}
+
+
       {marker}
     </ReactMapGL>
   );

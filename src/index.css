@@ -84,3 +84,16 @@ textarea {
   background-color: white;
   border: 1px solid black;
 }
+
+.drop-down-category{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.icon-button{
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 1px;
+  height: 1px;
+}

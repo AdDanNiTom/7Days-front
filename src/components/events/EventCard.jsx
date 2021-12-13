@@ -7,7 +7,7 @@ import { GeoAlt, CaretUp, CaretDown } from "react-bootstrap-icons";
 const API_URI = process.env.REACT_APP_API_URI;
 
 // We are deconstructing props object directly in the parentheses of the function
-function EventCard({
+export default function EventCard({
   _id,
   title,
   description,
@@ -111,5 +111,3 @@ function EventCard({
     </Row>
   );
 }
-
-export default EventCard;

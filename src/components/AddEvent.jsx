@@ -11,7 +11,6 @@ Geocode.setLanguage("en");
 const API_URI = process.env.REACT_APP_API_URI;
 Geocode.setApiKey("AIzaSyBfG1BvX0ET5AGbzG9FvUiBqpA_S4AeXhk");
 
-
 export default function AddEvent(props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -32,19 +31,17 @@ export default function AddEvent(props) {
   //CONTEXT
   const { user } = useContext(AuthContext);
 
-
-
   useEffect(() => {
     Geocode.fromLatLng(location[1], location[0]).then(
       (response) => {
         const geoAddress = response.results[0].formatted_address;
         console.log(geoAddress);
-        setAddress(geoAddress)
+        setAddress(geoAddress);
       },
       (error) => {
         console.error(error);
       }
-    )
+    );
   }, [location]);
 
   const handleSubmit = (e) => {
@@ -57,7 +54,7 @@ export default function AddEvent(props) {
       eventDate,
       maxAtendees,
       location,
-      address
+      address,
     };
 
     // Get the token from the localStorage
@@ -110,13 +107,23 @@ export default function AddEvent(props) {
         <select
           id="emoji-dropdown"
           name="icon"
-          onChange={(e) => setIcon(e.target.value)}>
-          <option>Choose a category</option>
+          onChange={(e) => setIcon(e.target.value)}
+        >
+          <option value="🙋">🙋 Open to plans</option>
           <option value="🍺">🍺 Drinks</option>
+          <option value="☕">☕ Coffee</option>
           <option value="🥘">🥘 Food</option>
+          <option value="🛍️">🛍️ Shopping</option>
+          <option value="🎉">🎉 Clubbing</option>
           <option value="⚽">⚽ Sports</option>
+          <option value="🧘">🧘 Yoga</option>
+          <option value="🏖️">🏖️ Beach</option>
           <option value="🏛️">🏛️ Art & Culture</option>
-          <option value="🎥 ">🎥 Cinema</option>
+          <option value="🎥 ">🎥 Movies</option>
+          <option value="🎸">🎸 Music</option>
+          <option value="🎲">🎲 Board games</option>
+          <option value="🎮">🎮 Computer games</option>
+          <option value="🤷">🤷 Other</option>
         </select>
         <label>Event Date:</label>
         <DatePicker
