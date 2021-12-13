@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import { useQuery } from "react-query";
+import * as api from "../apiRequests";
 
-function Mapbox(props) {
-  const { events } = props;
-
+function Mapbox() {
+  // const [events, setEvents] = useState(null);
   const [viewport, setViewport] = useState({
     latitude: 41.38,
     longitude: 2.16,
@@ -13,8 +14,23 @@ function Mapbox(props) {
     pitch: 15,
   });
 
+  const { data, isLoading, isError } = useQuery("events", api.fetchAllEvents);
+
+  const currentCoord = [];
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((pos) => {
+      currentCoord.push(pos.coords.latitude, pos.coords.longitude);
+      setViewport({
+        ...viewport,
+        latitude: pos.coords.latitude,
+        longitude: pos.coords.longitude,
+      });
+    });
+  }, []);
+
   const onClickMap = (e) => {
     e.preventDefault();
+    console.log(e.lngLat);
   };
 
   const marker = (
@@ -35,6 +51,18 @@ function Mapbox(props) {
 
   const [selectedEvent, setSelectedEvent] = useState(null);
 
+  if (isLoading) {
+    return (
+      <div className="spinner-border text-primary" role="status">
+        <span className="sr-only"></span>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return <h1>ERROR. COULDN'T RETRIEVE DATA</h1>;
+  }
+
   return (
     <ReactMapGL
       {...viewport}
@@ -45,8 +73,8 @@ function Mapbox(props) {
       onViewportChange={(viewport) => setViewport(viewport)}
       onClick={onClickMap}
     >
-  
-      {events?.map((event) => {
+      
+      {data?.map((event) => {
         console.log("loaded!", event.location);
         if (event.location.length === 2) {
           return (
@@ -92,7 +120,7 @@ function Mapbox(props) {
                 : "Anonymous"}
             </p>
             <p>
-            {/* ATTENDEES IS NOT BEING POPULATED */}
+            {/* ATTENDEES IS NOT BEING POPULATED  */}
               Attendees:
               <ul>
                 {selectedEvent.attendees.map((attendee) => {
@@ -103,7 +131,6 @@ function Mapbox(props) {
           </div>
         </Popup>
       ) : null}
-
       
     </ReactMapGL>
   );

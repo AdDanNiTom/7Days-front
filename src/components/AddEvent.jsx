@@ -112,12 +112,22 @@ export default function AddEvent(props) {
           name="icon"
           onChange={(e) => setIcon(e.target.value)}
         >
+          <option value="🙋">🙋 Open to plans</option>
           <option>Choose a category</option>
           <option value="🍺">🍺 Drinks</option>
+          <option value="☕">☕ Coffee</option>
           <option value="🥘">🥘 Food</option>
+          <option value="🛍️">🛍️ Shopping</option>
+          <option value="🎉">🎉 Clubbing</option>
           <option value="⚽">⚽ Sports</option>
+          <option value="🧘">🧘 Yoga</option>
+          <option value="🏖️">🏖️ Beach</option>
           <option value="🏛️">🏛️ Art & Culture</option>
-          <option value="🎥 ">🎥 Cinema</option>
+          <option value="🎥 ">🎥 Movies</option>
+          <option value="🎸">🎸 Music</option>
+          <option value="🎲">🎲 Board games</option>
+          <option value="🎮">🎮 Computer games</option>
+          <option value="🤷">🤷 Other</option>
         </select>
         <label>Date:</label>
         <DatePicker
