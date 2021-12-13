@@ -4,6 +4,7 @@ import { AuthContext } from "../../context/auth.context";
 import { Row, Button, Collapse, Card } from "react-bootstrap";
 import { GeoAlt, CaretUp, CaretDown } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
+import DropdownLink from "../utilities/DropdownLink";
 
 const API_URI = process.env.REACT_APP_API_URI;
 
@@ -19,7 +20,7 @@ function EventCard({
   date,
   maxAtendees,
   changeEffect,
-  address
+  address,
 }) {
   const [isAttending, setIsAttending] = useState(false);
   const [open, setOpen] = useState(false);
@@ -48,21 +49,30 @@ function EventCard({
       )
       .then((response) => {
         //setIsAttending(!isAttending);
-        console.log("i'm in the 'then'")
+        console.log("i'm in the 'then'");
         if (isAttending === true) setIsAttending(false);
         if (isAttending === false) setIsAttending(true);
       })
       .catch((error) => {
-        console.log("i'm in the 'catch'")
-        console.log(error)
+        console.log("i'm in the 'catch'");
+        console.log(error);
       });
 
-      changeEffect()
-
+    changeEffect();
   };
-  
+
   function dayOfWeekAsString(dayIndex) {
-    return ["Sunday", "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][dayIndex] || '';
+    return (
+      [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ][dayIndex] || ""
+    );
   }
 
   return (
@@ -71,9 +81,19 @@ function EventCard({
         <Card.Header className="d-flex justify-content-between">
           <GeoAlt size={30} />
           <Card.Title>{title}</Card.Title>
-          {(isAttending && owner._id !== user._id) && <Button onClick={handleJoinClick} variant="danger">Leave</Button>}
-          {(!isAttending && owner._id !== user._id) && <Button onClick={handleJoinClick}>Join</Button>}
-          {owner._id === user._id && <Link className="btn btn-warning" to={`/events/edit/${_id}`}>Edit</Link>}
+          {isAttending && owner._id !== user._id && (
+            <Button onClick={handleJoinClick} variant="danger">
+              Leave
+            </Button>
+          )}
+          {!isAttending && owner._id !== user._id && (
+            <Button onClick={handleJoinClick}>Join</Button>
+          )}
+          {owner._id === user._id && (
+            <Link className="btn btn-warning" to={`/events/edit/${_id}`}>
+              Edit
+            </Link>
+          )}
         </Card.Header>
         <Card.Body>
           <Card.Title>
@@ -88,34 +108,24 @@ function EventCard({
             <div id="example-collapse-text">
               <Card.Text>{address}</Card.Text>
               <Card.Text>
-                {description ? "Event Description: " + description : "No description available"}
+                {description
+                  ? "Event Description: " + description
+                  : "No description available"}
               </Card.Text>
               <div>
-              {attendees.length > 0 && <p>Attendees:</p>}
+                {attendees.length > 0 && <p>Attendees:</p>}
                 {attendees.map((attendee) => {
                   return <p>{attendee.username}</p>;
                 })}
               </div>
             </div>
           </Collapse>
-          <Card.Link
-            onClick={() => setOpen(!open)}
-            aria-controls="example-collapse-text"
-            aria-expanded={open}
-          >
-            {open && (
-              <Card.Text>
-                <CaretUp />
-                Hide details
-              </Card.Text>
-            )}
-            {!open && (
-              <Card.Text>
-                <CaretDown />
-                Show details
-              </Card.Text>
-            )}
-          </Card.Link>
+          <DropdownLink
+            open={open}
+            parentCb={setOpen}
+            textOpen="Hide details"
+            textClosed="Show details"
+          />
         </Card.Body>
       </Card>
     </Row>

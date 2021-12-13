@@ -16,6 +16,7 @@ import Welcome from "./pages/Welcome";
 import { useContext } from "react";
 import { AuthContext } from "./context/auth.context";
 import Error from "./components/status/Error";
+import EventMapMerge from "./pages/events/EventMapMerge";
 
 function App() {
   const { error } = useContext(AuthContext);
@@ -36,6 +37,7 @@ function App() {
         
         <AnonRoute exact path="/signup" component={SignupPage} />
         <AnonRoute exact path="/login" component={LoginPage} />
+        <AnonRoute exact path="/test" component={EventMapMerge} />
 
       </Switch>
       <Navbar />
