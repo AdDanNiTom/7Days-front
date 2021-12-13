@@ -16,17 +16,17 @@ function Mapbox() {
 
   const { data, isLoading, isError } = useQuery("events", api.fetchAllEvents);
 
-  const currentCoord = [];
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((pos) => {
-      currentCoord.push(pos.coords.latitude, pos.coords.longitude);
-      setViewport({
-        ...viewport,
-        latitude: pos.coords.latitude,
-        longitude: pos.coords.longitude,
-      });
-    });
-  }, []);
+  // const currentCoord = [];
+  // useEffect(() => {
+  //   navigator.geolocation.getCurrentPosition((pos) => {
+  //     currentCoord.push(pos.coords.latitude, pos.coords.longitude);
+  //     setViewport({
+  //       ...viewport,
+  //       latitude: pos.coords.latitude,
+  //       longitude: pos.coords.longitude,
+  //     });
+  //   });
+  // }, []);
 
   const onClickMap = (e) => {
     e.preventDefault();
