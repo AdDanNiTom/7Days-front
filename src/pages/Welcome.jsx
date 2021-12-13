@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../context/auth.context";
 import axios from "axios";
 import LoginWithGoogle from "../components/welcome/LoginWithGoogle";
+import { Link } from "react-router-dom";
 
 const API_URI = process.env.REACT_APP_API_URI;
 
@@ -23,6 +24,8 @@ function Welcome(props) {
     <div>
       <h1>7Days</h1>
       <LoginWithGoogle props={props} />
+      <Link to="/login">Login</Link>
+      <Link to="/signup">Signup</Link>
     </div>
   );
 }
