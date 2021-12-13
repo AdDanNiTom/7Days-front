@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { AuthContext } from "../../context/auth.context";
 import { Row, Button, Collapse, Card } from "react-bootstrap";
-import { GeoAlt, CaretUp, CaretDown } from "react-bootstrap-icons";
+import { GeoAlt, CaretUp, CaretDown, Clipboard } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 
 const API_URI = process.env.REACT_APP_API_URI;
@@ -96,6 +96,7 @@ function EventCard({
                   return <p>{attendee.username}</p>;
                 })}
               </div>
+              <Button className="btn-light" onClick={() => {navigator.clipboard.writeText(`http://localhost:3000/events/${_id}`)}}><Clipboard size={20} />Copy Event URL</Button>
             </div>
           </Collapse>
           <Card.Link
