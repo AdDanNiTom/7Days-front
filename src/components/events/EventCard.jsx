@@ -101,7 +101,7 @@ function EventCard({
             <h3>{icon}</h3>
           </Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
-            {owner ? "@" + owner.username : "Anonymous"}
+            {owner ?<Link to={"/profile/"+owner._id}>@{owner.username}</Link>: "Anonymous"}
           </Card.Subtitle>
 
           <Collapse in={open}>

@@ -32,7 +32,8 @@ function App() {
         <PrivateRoute exact path="/events/:id" component={EventDetailsPage} />
         <PrivateRoute exact path="/events/edit/:id" component={EditEventPage} />
         <PrivateRoute exact path="/maps" component={MapboxPage} />
-        <PrivateRoute exact path="/profile" component={ProfilePage} />
+        <PrivateRoute exact path="/profile/:id" component={ProfilePage} />
+        {/* <PrivateRoute exact path="/profile" component={ProfilePage} /> */}
         <PrivateRoute exact path="/profile/edit" component={EditProfilePage} />
         
         <AnonRoute exact path="/signup" component={SignupPage} />
