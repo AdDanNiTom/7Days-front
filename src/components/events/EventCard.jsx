@@ -3,6 +3,7 @@ import axios from "axios";
 import { AuthContext } from "../../context/auth.context";
 import { Row, Button, Collapse, Card } from "react-bootstrap";
 import { GeoAlt, CaretUp, CaretDown } from "react-bootstrap-icons";
+import { Link } from "react-router-dom";
 
 const API_URI = process.env.REACT_APP_API_URI;
 
@@ -15,9 +16,10 @@ function EventCard({
   location,
   attendees,
   icon,
-  eventDate,
+  date,
   maxAtendees,
-  changeEffect
+  changeEffect,
+  address
 }) {
   const [isAttending, setIsAttending] = useState(false);
   const [open, setOpen] = useState(false);
@@ -58,18 +60,25 @@ function EventCard({
       changeEffect()
 
   };
+  
+  function dayOfWeekAsString(dayIndex) {
+    return ["Sunday", "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][dayIndex] || '';
+  }
+
   return (
     <Row className="m-3">
       <Card className="p-0">
         <Card.Header className="d-flex justify-content-between">
           <GeoAlt size={30} />
           <Card.Title>{title}</Card.Title>
-          {isAttending && <Button onClick={handleJoinClick} variant="danger">Leave</Button>}
-          {!isAttending && <Button onClick={handleJoinClick}>Join</Button>}
+          {(isAttending && owner._id !== user._id) && <Button onClick={handleJoinClick} variant="danger">Leave</Button>}
+          {(!isAttending && owner._id !== user._id) && <Button onClick={handleJoinClick}>Join</Button>}
+          {owner._id === user._id && <Link className="btn btn-warning" to={`/events/edit/${_id}`}>Edit</Link>}
         </Card.Header>
         <Card.Body>
           <Card.Title>
-            {eventDate ? new Date(eventDate).toDateString() : "unknown date"}
+            {/*date ? dayOfWeekAsString(date.weekday) : "unknown date"*/}
+            <h3>{icon}</h3>
           </Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
             {owner ? "@" + owner.username : "Anonymous"}
@@ -77,15 +86,16 @@ function EventCard({
 
           <Collapse in={open}>
             <div id="example-collapse-text">
-              <Card.Text>Location: {location}</Card.Text>
+              <Card.Text>{address}</Card.Text>
               <Card.Text>
-                {description ? description : "No description available"}
+                {description ? "Event Description: " + description : "No description available"}
               </Card.Text>
-              <ul>
+              <div>
+              {attendees.length > 0 && <p>Attendees:</p>}
                 {attendees.map((attendee) => {
-                  return <li>{attendee.username}</li>;
+                  return <p>{attendee.username}</p>;
                 })}
-              </ul>
+              </div>
             </div>
           </Collapse>
           <Card.Link

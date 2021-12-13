@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const API_URI = process.env.REACT_APP_API_URI;
 
@@ -82,6 +83,7 @@ export default function EditEventPage(props) {
       </form>
 
       <button onClick={deleteEvent}>Delete Event</button>
+      <Link className="btn btn-primary" to="/events">Back to Events</Link>
     </div>
   );
 }
