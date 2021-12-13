@@ -18,6 +18,7 @@ export default function AddEvent(props) {
   const [eventDate, setEventDate] = useState(new Date());
   const [maxAtendees, setMaxAtendees] = useState("");
   const [location, setLocation] = useState("");
+  const [eventTime, setEventTime] = useState(new Date());
   const [address, setAddress] = useState("");
   const [viewport, setViewport] = useState({
     latitude: 41.38,
@@ -46,6 +47,7 @@ export default function AddEvent(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const time = eventTime.toTimeString();
     const requestBody = {
       title,
       description,
@@ -55,8 +57,9 @@ export default function AddEvent(props) {
       maxAtendees,
       location,
       address,
+      time
     };
-
+    console.log("reqBody is: ", requestBody)
     // Get the token from the localStorage
     const storedToken = localStorage.getItem("authToken");
 
@@ -110,6 +113,7 @@ export default function AddEvent(props) {
           onChange={(e) => setIcon(e.target.value)}
         >
           <option value="🙋">🙋 Open to plans</option>
+          <option>Choose a category</option>
           <option value="🍺">🍺 Drinks</option>
           <option value="☕">☕ Coffee</option>
           <option value="🥘">🥘 Food</option>
@@ -125,15 +129,28 @@ export default function AddEvent(props) {
           <option value="🎮">🎮 Computer games</option>
           <option value="🤷">🤷 Other</option>
         </select>
-        <label>Event Date:</label>
+        <label>Date:</label>
         <DatePicker
+          className="datepicker"
           selected={eventDate}
-          onChange={(date) => setEventDate(date)}
+          onChange={(eventDate) => setEventDate(eventDate)}
           name="eventDate"
           value={eventDate}
           minDate={new Date()}
           maxDate={new Date(new Date().setDate(new Date().getDate() + 6))}
-          dateFormat="dd/MM/yyyy"
+          dateFormat="MMMM d, yyyy"
+        />
+        <label>Time:</label>
+        <DatePicker
+          selected={eventTime}
+          onChange={(eventTime) => setEventTime(eventTime)}
+          showTimeSelect
+          name="time"
+          value={eventTime}
+          showTimeSelectOnly
+          timeIntervals={15}
+          timeCaption="Time"
+          dateFormat="h:mm aa"
         />
         <label>Max Atendees:</label>
         <input
@@ -142,9 +159,6 @@ export default function AddEvent(props) {
           value={maxAtendees}
           onChange={(e) => setMaxAtendees(e.target.value)}
         />
-        {/* <label>Location:</label> <br />
-        <div>Latitude: {location[0]}</div>
-        <div>Longitude:{location[1]}</div> */}
         <div>Address: {address}</div>
         <br />
         <div className="minimap">
