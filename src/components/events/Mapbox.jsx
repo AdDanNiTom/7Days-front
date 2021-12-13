@@ -17,22 +17,6 @@ function Mapbox(props) {
     e.preventDefault();
   };
 
-  const marker = (
-    <Marker
-      latitude={41.38893706489965}
-      longitude={2.183596863159949}
-      offsetLeft={(-viewport.zoom * 5) / 2}
-      offsetTop={-viewport.zoom * 5}
-    >
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Simpleicons_Places_map-marker-point.svg/2048px-Simpleicons_Places_map-marker-point.svg.png"
-        alt="location"
-        height={viewport.zoom * 5}
-        width={viewport.zoom * 5}
-      />
-    </Marker>
-  );
-
   const [selectedEvent, setSelectedEvent] = useState(null);
 
   return (
@@ -45,7 +29,6 @@ function Mapbox(props) {
       onViewportChange={(viewport) => setViewport(viewport)}
       onClick={onClickMap}
     >
-  
       {events?.map((event) => {
         console.log("loaded!", event.location);
         if (event.location.length === 2) {
@@ -92,7 +75,7 @@ function Mapbox(props) {
                 : "Anonymous"}
             </p>
             <p>
-            {/* ATTENDEES IS NOT BEING POPULATED */}
+              {/* ATTENDEES IS NOT BEING POPULATED */}
               Attendees:
               <ul>
                 {selectedEvent.attendees.map((attendee) => {
@@ -103,8 +86,6 @@ function Mapbox(props) {
           </div>
         </Popup>
       ) : null}
-
-      
     </ReactMapGL>
   );
 }

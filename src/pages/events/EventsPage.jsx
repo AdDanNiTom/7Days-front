@@ -16,18 +16,20 @@ function EventMapMerge(props) {
   const [filteredEvents, setFilteredEvents] = useState(null);
 
   // Filtering
-  const [filter, setFilter] = useState({ weekday: null, category: null });
+  const [filter, setFilter] = useState({ weekday: null, category: "all" });
 
-  const handleDayFilter = (day) => {
-    if (day === null) {
-      setFilter({ ...filter, weekday: null });
-      setFilteredEvents(data);
-    } else {
-      setFilter({ ...filter, weekday: day });
-      setFilteredEvents(data.filter((event) => event.date.weekday === day));
-    }
+  const handleFilterChange = (day, category) => {
+    setFilter({ weekday: day, category: category || "all" });
+    let filteredData = [...data];
+
+    if (day !== null)
+      filteredData = filteredData.filter((event) => event.date.weekday === day);
+    if (category !== "all")
+      filteredData = filteredData.filter((event) => event.icon === category);
+
+    setFilteredEvents(filteredData);
   };
-  const handleCategoryFilter = () => console.log("switchicon");
+
   // gets query params
   const search = useLocation().search;
   const view = new URLSearchParams(search).get("view");
@@ -49,8 +51,11 @@ function EventMapMerge(props) {
       <Card>
         <Collapse in={showFilters}>
           <Card.Header>
-            <SevenDays parentCb={handleDayFilter} activeDay={filter.weekday} />
-            <FilterByCategory parentCb={handleCategoryFilter} />
+            <SevenDays parentCb={handleFilterChange} filterState={filter} />
+            <FilterByCategory
+              parentCb={handleFilterChange}
+              filterState={filter}
+            />
           </Card.Header>
         </Collapse>
 
