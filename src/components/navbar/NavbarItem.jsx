@@ -6,17 +6,20 @@ import { AuthContext } from "../../context/auth.context";
 function NavbarItem(props) {
   const { text } = props;
   const { user } = useContext(AuthContext);
-  
-  console.log("user",user)
+
+  console.log("user", user);
   if (props.page === "profile") {
-  return (
-    <li className="nav-item d-flex align-items-end">
-      <Link className="text-decoration-none text-light" to={"/profile/" + user._id}>
-        {props.children}
-        <p className="border-bottom fw-light">{text}</p>
-      </Link>
-    </li>
-  );
+    return (
+      <li className="nav-item d-flex align-items-end">
+        <Link
+          className="text-decoration-none text-light"
+          to={user ? "/profile/" + user._id : "/"}
+        >
+          {props.children}
+          <p className="border-bottom fw-light">{text}</p>
+        </Link>
+      </li>
+    );
   } else {
     return (
       <li className="nav-item d-flex align-items-end">
