@@ -49,7 +49,7 @@ function Mapbox() {
     </Marker>
   );
 
-  const [selectedEvent, setSelectedEvent] = useState(null)
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   if (isLoading) {
     return (
@@ -63,7 +63,6 @@ function Mapbox() {
     return <h1>ERROR. COULDN'T RETRIEVE DATA</h1>;
   }
 
-
   return (
     <ReactMapGL
       {...viewport}
@@ -74,7 +73,7 @@ function Mapbox() {
       onViewportChange={(viewport) => setViewport(viewport)}
       onClick={onClickMap}
     >
-      {marker}
+      
       {data?.map((event) => {
         console.log("loaded!", event.location);
         if (event.location.length === 2) {
@@ -87,16 +86,14 @@ function Mapbox() {
               offsetTop={-viewport.zoom * 5}
             >
               <button
-              className="icon-button"
-              onClick={(e) => {
-                e.preventDefault()
-                setSelectedEvent(event)
-              }}
-
-                >
+                className="icon-button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedEvent(event);
+                }}
+              >
                 {event.icon}
               </button>
-              
             </Marker>
           );
         }
@@ -104,22 +101,38 @@ function Mapbox() {
 
       {selectedEvent ? (
         <Popup
-        latitude={selectedEvent.location[1]}
-        longitude={selectedEvent.location[0]}
-        onClose={() =>{
-          setSelectedEvent(null);
-        }}>
+          latitude={selectedEvent.location[1]}
+          longitude={selectedEvent.location[0]}
+          onClose={() => {
+            setSelectedEvent(null);
+          }}
+        >
           <div>
-          <br/>
-            <h4>{selectedEvent.icon} {selectedEvent.title}</h4>
+            <br />
+            <h4>
+              {selectedEvent.icon} {selectedEvent.title}
+            </h4>
             <p>{selectedEvent.description}</p>
-            <p>{selectedEvent.date.fullDate}</p>
+            <p>
+              Host:
+              {selectedEvent.owner
+                ? "@" + selectedEvent.owner.username
+                : "Anonymous"}
+            </p>
+            <p>
+              {" "}
+              Attendees:
+              <ul>
+                {selectedEvent.attendees.map((attendee) => {
+                  return <li>{attendee.username}</li>;
+                })}
+              </ul>
+            </p>
           </div>
         </Popup>
       ) : null}
 
-
-      {marker}
+      
     </ReactMapGL>
   );
 }

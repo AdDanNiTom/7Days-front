@@ -94,6 +94,7 @@ textarea {
   background: none;
   border: none;
   cursor: pointer;
+  font-size: 23px;
   width: 1px;
   height: 1px;
 }
