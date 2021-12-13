@@ -17,7 +17,7 @@ function LoginWithGoogle(props) {
       .then((response) => {
         const JWTToken = response.data.authToken;
         logInUser(JWTToken);
-        props.props.history.push("/events");
+        props.props.history.push("/events?view=list");
       })
       .catch((error) => {
         console.log(error);

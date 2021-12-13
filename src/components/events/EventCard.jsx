@@ -2,8 +2,9 @@ import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { AuthContext } from "../../context/auth.context";
 import { Row, Button, Collapse, Card } from "react-bootstrap";
-import { GeoAlt, CaretUp, CaretDown, Clipboard } from "react-bootstrap-icons";
+import { GeoAlt, Clipboard } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
+import DropdownLink from "../utilities/DropdownLink";
 import ReactMapGL, { Marker } from "react-map-gl";
 
 const API_URI = process.env.REACT_APP_API_URI;
@@ -56,13 +57,10 @@ function EventCard({
         }
       )
       .then((response) => {
-        //setIsAttending(!isAttending);
-        console.log("i'm in the 'then'");
         if (isAttending === true) setIsAttending(false);
         if (isAttending === false) setIsAttending(true);
       })
       .catch((error) => {
-        console.log("i'm in the 'catch'");
         console.log(error);
       });
 
@@ -120,33 +118,37 @@ function EventCard({
             <div id="example-collapse-text w-100">
               <Card.Text>{address}</Card.Text>
               <br />
-
-              {location.length === 2 ? <ReactMapGL
-                {...viewport}
-                mapboxApiAccessToken="pk.eyJ1IjoiYWRyaWFuYXJhbmRhIiwiYSI6ImNrd3hmdzZzbDBjemQydnBsaTllN215dmoifQ.lSWVa5b6Z14zxBXLkER_xQ"
-                mapStyle="mapbox://styles/mapbox/streets-v10"
-                width="100%"
-                height="30vh"
-                onViewportChange={(viewport) => setViewport(viewport)}
-                // onClick={onClickMap}
-              >
-                <Marker
-                  latitude={location[1]}
-                  longitude={location[0]}
-                  offsetLeft={(-viewport.zoom * 5) / 2}
-                  offsetTop={-viewport.zoom * 5}
+              {location.length === 2 ? (
+                <ReactMapGL
+                  {...viewport}
+                  mapboxApiAccessToken="pk.eyJ1IjoiYWRyaWFuYXJhbmRhIiwiYSI6ImNrd3hmdzZzbDBjemQydnBsaTllN215dmoifQ.lSWVa5b6Z14zxBXLkER_xQ"
+                  mapStyle="mapbox://styles/mapbox/streets-v10"
+                  width="100%"
+                  height="30vh"
+                  onViewportChange={(viewport) => setViewport(viewport)}
+                  // onClick={onClickMap}
                 >
-                  <img
-                    src="https://cdn-icons.flaticon.com/png/512/2377/premium/2377922.png?token=exp=1639411308~hmac=3574f92bdbd79bd1d2546cd704409071"
-                    alt="location"
-                    height={viewport.zoom * 5}
-                    width={viewport.zoom * 5}
-                  />
-                </Marker>
-              </ReactMapGL> : <img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/no-location-1-832962.png"/>} <br />
+                  <Marker
+                    latitude={location[1]}
+                    longitude={location[0]}
+                    offsetLeft={(-viewport.zoom * 5) / 2}
+                    offsetTop={-viewport.zoom * 5}
+                  >
+                    <img
+                      src="https://cdn-icons.flaticon.com/png/512/2377/premium/2377922.png?token=exp=1639411308~hmac=3574f92bdbd79bd1d2546cd704409071"
+                      alt="location"
+                      height={viewport.zoom * 5}
+                      width={viewport.zoom * 5}
+                    />
+                  </Marker>
+                </ReactMapGL>
+              ) : (
+                <img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/no-location-1-832962.png" />
+              )}{" "}
+              <br />
               <Card.Text>
                 {description
-                  ? "Description: " + description
+                  ? "Event Description: " + description
                   : "No description available"}
               </Card.Text>
               <div>
@@ -155,27 +157,25 @@ function EventCard({
                   return <p>{attendee.username}</p>;
                 })}
               </div>
-              <Button className="btn-light" onClick={() => {navigator.clipboard.writeText(`http://localhost:3000/events/${_id}`)}}><Clipboard size={20} />Copy Event URL</Button>
+              <Button
+                className="btn-light"
+                onClick={() => {
+                  navigator.clipboard.writeText(
+                    `http://localhost:3000/events/${_id}`
+                  );
+                }}
+              >
+                <Clipboard size={20} />
+                Copy Event URL
+              </Button>
             </div>
           </Collapse>
-          <Card.Link
-            onClick={() => setOpen(!open)}
-            aria-controls="example-collapse-text"
-            aria-expanded={open}
-          >
-            {open && (
-              <Card.Text>
-                <CaretUp />
-                Hide details
-              </Card.Text>
-            )}
-            {!open && (
-              <Card.Text>
-                <CaretDown />
-                Show details
-              </Card.Text>
-            )}
-          </Card.Link>
+          <DropdownLink
+            open={open}
+            parentCb={setOpen}
+            textOpen="Hide details"
+            textClosed="Show details"
+          />
         </Card.Body>
       </Card>
     </Row>
