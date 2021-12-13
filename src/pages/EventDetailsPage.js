@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import { Row, Button, Collapse, Card } from "react-bootstrap";
+import { GeoAlt, CaretUp, CaretDown, Clipboard } from "react-bootstrap-icons";
 
 
 const API_URI = process.env.REACT_APP_API_URI;
@@ -31,35 +33,29 @@ export default function EventDetailsPage(props) {
   }, []);
 
   return (
-    <div className="EventDetails">
+
+    <div>
       {event && (
-        <div className="Event Details" style={{ maxWidth: "400px" }}>
-      <Link to={`/events/${event._id}`}>
-        <h3>
-          <img src={event.icon} alt="Event Icon" width="25px" />
-          {event.title}
-        </h3>
-      </Link>
-      
-     { event.owner ? <p>Created by: {event.owner.username}</p> : <p>Error: No owner for this event.</p>}
-      <p>Date: {event.eventDate}</p>
-      <p>Description: {event.description}</p>
-      <p>Location: {event.location}</p>
-      <ul>Attendees: {event.attendees.map((attendee)=>{
-        return <li>{attendee.username}</li>
-      })}</ul>
-      <p>Icon: {event.icon}</p>
-      <p>Max Atendees: {event.maxAtendees}</p>
-    </div>
+    <Row className="m-3">
+      <Card className="p-0">
+        <Card.Header>
+          <Card.Title>{event.title}</Card.Title>
+        </Card.Header>
+        <Card.Body>
+          <Card.Title><h3>{event.icon}</h3></Card.Title>
+          <Card.Subtitle><Link to={"/profile/"+event.owner._id}>@{event.owner.username}</Link></Card.Subtitle>
+          <Card.Text>{event.address}</Card.Text>
+          <Card.Text>{event.description}</Card.Text>
+          <Card.Text>
+          {event.attendees.length > 0 && <p>Attendees:</p>}
+          {event.attendees.map((attendee)=>{
+           return <p>{attendee.username}</p>
+           })}
+          </Card.Text>
+        </Card.Body>
+      </Card>
+    </Row>
       )}
-
-      <Link to="/events">
-        <button>Back to Events</button>
-      </Link>
-
-      <Link to={`/events/edit/${id}`}>
-        <button>Edit Event</button>
-      </Link>
     </div>
   );
 }
