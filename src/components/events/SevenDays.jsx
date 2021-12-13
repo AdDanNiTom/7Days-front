@@ -1,17 +1,26 @@
 import { Pagination } from "react-bootstrap";
 
 function SevenDays(props) {
+  const { parentCb, activeDay } = props;
   // days for pagination, currently always shows Sunday first. Work in progress
   let sevenDays = ["Su", "M", "T", "W", "Th", "F", "S"];
 
   return (
     <div>
       <Pagination>
+        <Pagination.Item
+          onClick={() => parentCb(null)}
+          active={activeDay === null}
+          className="pe-2"
+        >
+          ALL
+        </Pagination.Item>
+
         {sevenDays.map((oneDay, index) => (
           <Pagination.Item
-            onClick={() => props.parentCb(index)}
+            onClick={() => parentCb(index)}
             key={index}
-            active={index === props.selectedDay}
+            active={index === activeDay}
           >
             {oneDay}
           </Pagination.Item>
