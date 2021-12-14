@@ -11,17 +11,12 @@ import LoginPage from "./pages/LoginPage";
 import PrivateRoute from "./components/PrivateRoute";    // <== IMPORT
 import AnonRoute from "./components/AnonRoute";        // <== IMPORT
 import Welcome from "./pages/Welcome";
-import { useContext } from "react";
-import { AuthContext } from "./context/auth.context";
-import Error from "./components/status/Error";
 import EventsPage from "./pages/events/EventsPage";
 
 function App() {
-  const { error } = useContext(AuthContext);
 
   return (
     <div className="App">
-      {error && <Error/>}
         <Route exact path="/" component={Welcome} />
       <Switch>      
 

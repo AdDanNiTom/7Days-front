@@ -66,7 +66,7 @@ function Mapbox() {
   return (
     <ReactMapGL
       {...viewport}
-      mapboxApiAccessToken="pk.eyJ1IjoiYWRyaWFuYXJhbmRhIiwiYSI6ImNrd3hmdzZzbDBjemQydnBsaTllN215dmoifQ.lSWVa5b6Z14zxBXLkER_xQ"
+      mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
       width="100vw"
       height="100vh"
       mapStyle="mapbox://styles/mapbox/streets-v10"
