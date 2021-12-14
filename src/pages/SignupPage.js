@@ -23,7 +23,7 @@ function SignupPage(props) {
     // If POST request is successful redirect to login page
     // If the request resolves with an error, set the error message in the state
     axios
-      .post(`http://localhost:5050/auth/signup`, requestBody)
+      .post(`${API_URI}/auth/signup`, requestBody)
       .then((response) => props.history.push("/login"))
       .catch((error) => {
         const errorDescription = error.response.data.message;

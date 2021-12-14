@@ -85,6 +85,16 @@ textarea {
   border: 1px solid black;
 }
 
-/* .datepicker {
-  width: 70%;
-} */
+.drop-down-category{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.icon-button{
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 23px;
+  width: 1px;
+  height: 1px;
+}
