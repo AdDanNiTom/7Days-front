@@ -30,7 +30,6 @@ function Mapbox(props) {
       onClick={onClickMap}
     >
       {events?.map((event) => {
-        console.log("loaded!", event.location);
         if (event.location.length === 2) {
           return (
             <Marker

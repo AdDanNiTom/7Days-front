@@ -8,7 +8,7 @@ function SevenDays(props) {
   return (
     <Pagination>
       <Pagination.Item
-        onClick={() => parentCb(null)}
+        onClick={() => parentCb(null, filterState.category)}
         active={filterState.weekday === null}
         className="pe-2"
       >

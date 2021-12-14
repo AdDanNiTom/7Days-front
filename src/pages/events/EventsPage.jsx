@@ -24,6 +24,7 @@ function EventMapMerge(props) {
 
     if (day !== null)
       filteredData = filteredData.filter((event) => event.date.weekday === day);
+
     if (category !== "all")
       filteredData = filteredData.filter((event) => event.icon === category);
 
