@@ -6,6 +6,8 @@ import { GeoAlt, Clipboard } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import DropdownLink from "../utilities/DropdownLink";
 import ReactMapGL, { Marker } from "react-map-gl";
+import pin from '../../public/pin.png';
+
 
 const API_URI = process.env.REACT_APP_API_URI;
 
@@ -135,7 +137,7 @@ export default function EventCard({
                     offsetTop={-viewport.zoom * 5}
                   >
                     <img
-                      src="https://cdn-icons.flaticon.com/png/512/2377/premium/2377922.png?token=exp=1639411308~hmac=3574f92bdbd79bd1d2546cd704409071"
+                      src={pin}
                       alt="location"
                       height={viewport.zoom * 5}
                       width={viewport.zoom * 5}
