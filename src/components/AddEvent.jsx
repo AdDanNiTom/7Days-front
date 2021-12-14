@@ -54,8 +54,7 @@ export default function AddEvent(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submitted");
-    const time = eventTime.toTimeString();
+    const time = eventTime;
     const requestBody = {
       title,
       description,
