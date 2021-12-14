@@ -2,6 +2,17 @@ import React, { useState, useEffect } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import { useQuery } from "react-query";
 import * as api from "../apiRequests";
+import { FlyToInterpolator, NavigationControl } from 'react-map-gl';
+import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
+
+import mapboxgl from 'mapbox-gl';
+
+    // The following is required to stop "npm build" from transpiling mapbox code.
+    // notice the exclamation point in the import.
+    // @ts-ignore
+    // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+    mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
+
 
 function Mapbox() {
   // const [events, setEvents] = useState(null);
