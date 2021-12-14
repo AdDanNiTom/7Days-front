@@ -26,6 +26,7 @@ function Mapbox(props) {
       width="100vw"
       height="100vh"
       mapStyle="mapbox://styles/adrianaranda/ckx69z5kp7uyw15s9j733ujf0"
+      
       onViewportChange={(viewport) => setViewport(viewport)}
       onClick={onClickMap}
     >
