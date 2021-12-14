@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import ReactMapGL from "react-map-gl";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const API_URI = process.env.REACT_APP_API_URI;
 
@@ -39,17 +40,23 @@ export default function EditEventPage(props) {
       })
       .then((response) => {
         const oneEvent = response.data.data;
-
-        console.log("oneEvent:",oneEvent)
+        console.log("oneEvent:", oneEvent)
         setTitle(oneEvent.title);
         setDescription(oneEvent.description);
         setIcon(oneEvent.icon);
-        setEventDate(oneEvent.eventDate)
+        setEventDate(new Date(oneEvent.date.fullDate))
         setMaxAtendees(oneEvent.maxAtendees)
         setLocation(oneEvent.location)
-        setEventTime(oneEvent.eventTime)
+        setEventTime(new Date(oneEvent.time))
         setAddress(oneEvent.address)
-        setViewport(oneEvent.viewport)
+        setViewport({
+          latitude: oneEvent.location[1],
+          longitude: oneEvent.location[0],
+          height: window.innerHeight,
+          width: window.innerWidth,
+          zoom: 11,
+          pitch: 15,
+        })
       })
       .catch((error) => console.log(error));
     }, [id]);
@@ -67,7 +74,7 @@ export default function EditEventPage(props) {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        props.history.push(`/events/${id}`);
+        props.history.push(`/events`);
       });
     };
 
@@ -116,13 +123,24 @@ export default function EditEventPage(props) {
           onChange={(e) => setIcon(e.target.value)}
         >
           <option>Choose a category</option>
+          {icon === "🙋" ? <option selected="selected" value="🙋">🙋 Open to plans</option> : <option value="🙋">🙋 Open to plans</option>} 
           {icon === "🍺" ? <option selected="selected" value="🍺">🍺 Drinks</option> : <option value="🍺">🍺 Drinks</option>} 
+          {icon === "☕" ? <option selected="selected" value="☕">☕ Coffee</option> : <option value="☕">☕ Coffee</option>} 
           {icon === "🥘" ? <option selected="selected" value="🥘">🥘 Food</option> : <option value="🥘">🥘 Food</option>} 
+          {icon === "🛍️" ? <option selected="selected" value="🛍️">🛍️ Shopping</option> : <option value="🛍️">🛍️ Shopping</option>} 
+          {icon === "🎉" ? <option selected="selected" value="🎉">🎉 Clubbing</option> : <option value="🎉">🎉 Clubbing</option>} 
           {icon === "⚽" ? <option selected="selected" value="⚽">⚽ Sports</option> : <option value="⚽">⚽ Sports</option>} 
+          {icon === "🧘" ? <option selected="selected" value="🧘">🧘 Yoga</option> : <option value="🧘">🧘 Yoga</option>} 
+          {icon === "🏖️" ? <option selected="selected" value="🏖️">🏖️ Beach</option> : <option value="🏖️">🏖️ Beach</option>} 
           {icon === "🏛️" ? <option selected="selected" value="🏛️">🏛️ Art & Culture</option> : <option value="🏛️">🏛️ Art & Culture</option>} 
-          {icon === "🎥" ? <option selected="selected" value="🎥">🎥 Cinema</option> : <option value="🎥">🎥 Cinema</option>} 
+          {icon === "🎥" ? <option selected="selected" value="🎥">🎥 Movies</option> : <option value="🎥">🎥 Movies</option>}
+          {icon === "🎸" ? <option selected="selected" value="🎸">🎸 Music</option> : <option value="🎸">🎸 Music</option>}
+          {icon === "🎲" ? <option selected="selected" value="🎲">🎲 Board games</option> : <option value="🎲">🎲 Board games</option>}
+          {icon === "🎮" ? <option selected="selected" value="🎮">🎮 Computer games</option> : <option value="🎮">🎮 Computer games</option>}
+          {icon === "🤷" ? <option selected="selected" value="🤷">🤷 Other</option> : <option value="🤷">🤷 Other</option>}
         </select>
         <label>Date:</label>
+        
         <DatePicker
           className="datepicker"
           selected={eventDate}
