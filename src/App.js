@@ -22,8 +22,8 @@ function App() {
   return (
     <div className="App">
       {error && <Error/>}
-      <Switch>      
         <Route exact path="/" component={Welcome} />
+      <Switch>      
 
         {/* 👇 UPDATE THE EXISTING ROUTES 👇  */}
         <PrivateRoute exact path="/events" component={EventsPage} />
