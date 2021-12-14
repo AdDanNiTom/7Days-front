@@ -39,6 +39,8 @@ export default function EditEventPage(props) {
       })
       .then((response) => {
         const oneEvent = response.data.data;
+
+        console.log("oneEvent:",oneEvent)
         setTitle(oneEvent.title);
         setDescription(oneEvent.description);
         setIcon(oneEvent.icon);
@@ -50,45 +52,45 @@ export default function EditEventPage(props) {
         setViewport(oneEvent.viewport)
       })
       .catch((error) => console.log(error));
-  }, [id]);
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    const requestBody = { title, description, icon, eventDate, maxAtendees, location, eventTime, address, viewport };
-
-    // Get the token from the localStorage
-    const storedToken = localStorage.getItem("authToken");
-
-    // Send the token through the request "Authorization" Headers
-    axios
+    }, [id]);
+    
+    const handleFormSubmit = (e) => {
+      e.preventDefault();
+      const requestBody = { title, description, icon, eventDate, maxAtendees, location, eventTime, address, viewport };
+      
+      // Get the token from the localStorage
+      const storedToken = localStorage.getItem("authToken");
+      
+      // Send the token through the request "Authorization" Headers
+      axios
       .put(`${API_URI}/api/events/${id}`, requestBody, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
         props.history.push(`/events/${id}`);
       });
-  };
+    };
 
-  const deleteEvent = () => {
-    // Get the token from the localStorage
-    const storedToken = localStorage.getItem("authToken");
-
-    // Send the token through the request "Authorization" Headers
-    axios
+    const deleteEvent = () => {
+      // Get the token from the localStorage
+      const storedToken = localStorage.getItem("authToken");
+      
+      // Send the token through the request "Authorization" Headers
+      axios
       .delete(`${API_URI}/api/events/${id}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then(() => history.push("/events"))
       .catch((err) => console.log(err));
-  };
-
-  const onClickMap = (e) => {
-    e.preventDefault();
-    console.log(e.lngLat);
-    setLocation(e.lngLat);
-  };
-
-  return (
+    };
+    
+    const onClickMap = (e) => {
+      e.preventDefault();
+      console.log(e.lngLat);
+      setLocation(e.lngLat);
+    };
+    
+    return (
     <div className="EditEventPage">
       <h3>Edit the Event</h3>
       <form onSubmit={handleFormSubmit}>
