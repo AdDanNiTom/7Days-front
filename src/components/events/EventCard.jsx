@@ -161,7 +161,7 @@ export default function EventCard({
                 className="btn-light"
                 onClick={() => {
                   navigator.clipboard.writeText(
-                    `http://localhost:3000/events/${_id}`
+                    `${API_URI}/events/${_id}`
                   );
                 }}
               >
