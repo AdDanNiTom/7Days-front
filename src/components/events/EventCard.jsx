@@ -6,7 +6,7 @@ import { GeoAlt, Clipboard } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import DropdownLink from "../utilities/DropdownLink";
 import ReactMapGL, { Marker } from "react-map-gl";
-import pin from 'public/pin.png';
+import pin from '../../images/pin.png';
 
 
 const API_URI = process.env.REACT_APP_API_URI;
