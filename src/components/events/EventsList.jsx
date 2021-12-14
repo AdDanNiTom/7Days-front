@@ -1,5 +1,6 @@
 import { useState } from "react";
 import EventCard from "./EventCard";
+import AddEvent from "../AddEvent";
 
 function EventsListPage(props) {
   const { events } = props;
@@ -17,6 +18,8 @@ function EventsListPage(props) {
             <EventCard key={event._id} {...event} changeEffect={changeEffect} />
           );
         })}
+      {/* Add event Form */}
+      <AddEvent />
     </div>
   );
 }

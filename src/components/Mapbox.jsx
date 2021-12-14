@@ -3,6 +3,7 @@ import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import { useQuery } from "react-query";
 import * as api from "../apiRequests";
 
+
 function Mapbox() {
   // const [events, setEvents] = useState(null);
   const [viewport, setViewport] = useState({
@@ -69,7 +70,7 @@ function Mapbox() {
       mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
       width="100vw"
       height="100vh"
-      mapStyle="mapbox://styles/mapbox/streets-v10"
+      mapStyle="mapbox://styles/adrianaranda/ckx69z5kp7uyw15s9j733ujf0"
       onViewportChange={(viewport) => setViewport(viewport)}
       onClick={onClickMap}
     >

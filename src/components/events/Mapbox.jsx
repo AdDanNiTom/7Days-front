@@ -25,7 +25,8 @@ function Mapbox(props) {
       mapboxApiAccessToken="pk.eyJ1IjoiYWRyaWFuYXJhbmRhIiwiYSI6ImNrd3hmdzZzbDBjemQydnBsaTllN215dmoifQ.lSWVa5b6Z14zxBXLkER_xQ"
       width="100vw"
       height="100vh"
-      mapStyle="mapbox://styles/mapbox/streets-v10"
+      mapStyle="mapbox://styles/adrianaranda/ckx69z5kp7uyw15s9j733ujf0"
+      
       onViewportChange={(viewport) => setViewport(viewport)}
       onClick={onClickMap}
     >

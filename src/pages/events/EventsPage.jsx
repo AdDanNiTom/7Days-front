@@ -73,8 +73,6 @@ function EventMapMerge(props) {
       ) : (
         <EventsList events={filteredEvents} />
       )}
-      {/* Add event Form */}
-      <AddEvent />
     </>
   );
 }
