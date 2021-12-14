@@ -161,7 +161,7 @@ export default function EventCard({
                 className="btn-light"
                 onClick={() => {
                   navigator.clipboard.writeText(
-                    `${API_URI}/events/${_id}`
+                    `https://app-seven.herokuapp.com/events/${_id}`
                   );
                 }}
               >
