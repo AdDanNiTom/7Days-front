@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import { useQuery } from "react-query";
 import * as api from "../apiRequests";
-import dotenv
 
 function Mapbox() {
   // const [events, setEvents] = useState(null);
