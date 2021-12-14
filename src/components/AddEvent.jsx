@@ -5,6 +5,8 @@ import ReactMapGL from "react-map-gl";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Geocode from "react-geocode";
+import { Row, Col, Button, Modal, Form, FloatingLabel } from "react-bootstrap";
+import { PlusCircle } from "react-bootstrap-icons";
 
 Geocode.setLanguage("en");
 
@@ -29,6 +31,11 @@ export default function AddEvent(props) {
     pitch: 15,
   });
 
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   //CONTEXT
   const { user } = useContext(AuthContext);
 
@@ -47,6 +54,7 @@ export default function AddEvent(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("submitted");
     const time = eventTime.toTimeString();
     const requestBody = {
       title,
@@ -57,9 +65,8 @@ export default function AddEvent(props) {
       maxAtendees,
       location,
       address,
-      time
+      time,
     };
-    console.log("reqBody is: ", requestBody)
     // Get the token from the localStorage
     const storedToken = localStorage.getItem("authToken");
 
@@ -82,98 +89,170 @@ export default function AddEvent(props) {
 
   const onClickMap = (e) => {
     e.preventDefault();
-    console.log(e.lngLat);
     setLocation(e.lngLat);
   };
 
   return (
-    <div className="AddEvent">
-      <h3>Add Event</h3>
+    <>
+      <Button variant="primary" onClick={handleShow}>
+        <PlusCircle size={50} />
+      </Button>
 
-      <form onSubmit={handleSubmit}>
-        <button type="submit">Submit</button>
-        <label>Title:</label>
-        <input
-          type="text"
-          name="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <label>Description:</label>
-        <textarea
-          type="text"
-          name="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <label>Category:</label>
-        <select
-          id="emoji-dropdown"
-          name="icon"
-          onChange={(e) => setIcon(e.target.value)}
-        >
-          <option value="🙋">🙋 Open to plans</option>
-          <option>Choose a category</option>
-          <option value="🍺">🍺 Drinks</option>
-          <option value="☕">☕ Coffee</option>
-          <option value="🥘">🥘 Food</option>
-          <option value="🛍️">🛍️ Shopping</option>
-          <option value="🎉">🎉 Clubbing</option>
-          <option value="⚽">⚽ Sports</option>
-          <option value="🧘">🧘 Yoga</option>
-          <option value="🏖️">🏖️ Beach</option>
-          <option value="🏛️">🏛️ Art & Culture</option>
-          <option value="🎥 ">🎥 Movies</option>
-          <option value="🎸">🎸 Music</option>
-          <option value="🎲">🎲 Board games</option>
-          <option value="🎮">🎮 Computer games</option>
-          <option value="🤷">🤷 Other</option>
-        </select>
-        <label>Date:</label>
-        <DatePicker
-          className="datepicker"
-          selected={eventDate}
-          onChange={(eventDate) => setEventDate(eventDate)}
-          name="eventDate"
-          value={eventDate}
-          minDate={new Date()}
-          maxDate={new Date(new Date().setDate(new Date().getDate() + 6))}
-          dateFormat="MMMM d, yyyy"
-        />
-        <label>Time:</label>
-        <DatePicker
-          selected={eventTime}
-          onChange={(eventTime) => setEventTime(eventTime)}
-          showTimeSelect
-          name="time"
-          value={eventTime}
-          showTimeSelectOnly
-          timeIntervals={15}
-          timeCaption="Time"
-          dateFormat="h:mm aa"
-        />
-        <label>Max Atendees:</label>
-        <input
-          type="number"
-          name="maxAtendees"
-          value={maxAtendees}
-          onChange={(e) => setMaxAtendees(e.target.value)}
-        />
-        <div>Address: {address}</div>
-        <br />
-        <div className="minimap">
-          <ReactMapGL
-            {...viewport}
-            mapboxApiAccessToken="pk.eyJ1IjoiYWRyaWFuYXJhbmRhIiwiYSI6ImNrd3hmdzZzbDBjemQydnBsaTllN215dmoifQ.lSWVa5b6Z14zxBXLkER_xQ"
-            mapStyle="mapbox://styles/adrianaranda/ckx69z5kp7uyw15s9j733ujf0"
-            width="100%"
-            height="100%"
-            onViewportChange={(viewport) => setViewport(viewport)}
-            onClick={onClickMap}
-          ></ReactMapGL>
-        </div>{" "}
-        <br />
-      </form>
-    </div>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Event</Modal.Title>
+        </Modal.Header>
+        <Form onSubmit={handleSubmit}>
+          <Modal.Body>
+            {/* Title */}
+            <Row>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <FloatingLabel
+                  controlId="floatingTitleInput"
+                  label="Event title"
+                  className="mb-3"
+                >
+                  <Form.Control
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Name your event"
+                  />
+                </FloatingLabel>
+              </Form.Group>
+            </Row>
+            {/* Description */}
+            <Row>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <FloatingLabel
+                  controlId="floatingTitleInput"
+                  label="Description"
+                  className="mb-3"
+                >
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    name="description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                </FloatingLabel>
+              </Form.Group>
+            </Row>
+            <Row>
+              <Col>
+                {/* Category */}
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlSelect1"
+                >
+                  <Form.Label>Category</Form.Label>
+                  <Form.Select
+                    aria-label="Default select example"
+                    id="emoji-dropdown"
+                    name="icon"
+                    onChange={(e) => setIcon(e.target.value)}
+                  >
+                    <option value="🙋">🙋 Open to plans</option>
+                    <option value="🍺">🍺 Drinks</option>
+                    <option value="☕">☕ Coffee</option>
+                    <option value="🥘">🥘 Food</option>
+                    <option value="🛍️">🛍️ Shopping</option>
+                    <option value="🎉">🎉 Clubbing</option>
+                    <option value="⚽">⚽ Sports</option>
+                    <option value="🧘">🧘 Yoga</option>
+                    <option value="🏖️">🏖️ Beach</option>
+                    <option value="🏛️">🏛️ Art & Culture</option>
+                    <option value="🎥 ">🎥 Movies</option>
+                    <option value="🎸">🎸 Music</option>
+                    <option value="🎲">🎲 Board games</option>
+                    <option value="🎮">🎮 Computer games</option>
+                    <option value="🤷">🤷 Other</option>
+                  </Form.Select>
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3" controlId="formMaxAttendees">
+                  <Form.Label>Max Atendees</Form.Label>
+                  <Form.Control
+                    type="number"
+                    name="maxAtendees"
+                    value={maxAtendees}
+                    onChange={(e) => setMaxAtendees(e.target.value)}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            {/* Date & Time */}
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Row>
+                <Col>
+                  <label>Date</label>
+                  <DatePicker
+                    className="datepicker"
+                    selected={eventDate}
+                    onChange={(eventDate) => setEventDate(eventDate)}
+                    name="eventDate"
+                    value={eventDate}
+                    minDate={new Date()}
+                    maxDate={
+                      new Date(new Date().setDate(new Date().getDate() + 6))
+                    }
+                    dateFormat="MMMM d, yyyy"
+                  />
+                </Col>
+                <Col>
+                  <label>Time</label>
+                  <DatePicker
+                    selected={eventTime}
+                    onChange={(eventTime) => setEventTime(eventTime)}
+                    showTimeSelect
+                    name="time"
+                    value={eventTime}
+                    showTimeSelectOnly
+                    timeIntervals={15}
+                    timeCaption="Time"
+                    dateFormat="h:mm aa"
+                  />
+                </Col>
+              </Row>
+            </Form.Group>
+            <Row className="d-flex justify-content-center">
+              <div className="minimap p-0 w-75">
+                <ReactMapGL
+                  {...viewport}
+                  mapboxApiAccessToken="pk.eyJ1IjoiYWRyaWFuYXJhbmRhIiwiYSI6ImNrd3hmdzZzbDBjemQydnBsaTllN215dmoifQ.lSWVa5b6Z14zxBXLkER_xQ"
+                  mapStyle="mapbox://styles/adrianaranda/ckx69z5kp7uyw15s9j733ujf0""
+                  width="100%"
+                  height="100%"
+                  onViewportChange={(viewport) => setViewport(viewport)}
+                  onClick={onClickMap}
+                ></ReactMapGL>
+              </div>
+              <Form.Control
+                className="w-75 mt-2"
+                type="text"
+                placeholder={address}
+                readOnly
+              />
+            </Row>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button type="submit" variant="primary" onClick={handleClose}>
+              Submit
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
+    </>
   );
 }
