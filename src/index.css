@@ -184,6 +184,10 @@ li {
 .popup-list-title {
   text-decoration: underline;
 }
+.orange-text {
+  color: orange;
+  border-bottom: 1px solid orange;
+}
 
 /* Profile card */
 
