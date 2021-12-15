@@ -32,7 +32,7 @@ function Welcome(props) {
       <img src={logo} className="w-50 logo-welcome" alt="logo" />
       <br />
     <Container fluid>
-      <Container fluid="sm w-75" className="container-sm"
+      <Container fluid="sm w-75" className="container-sm">
         {view === "login" && (
           <Container>
             <LoginWithGoogle props={props} /><br /><hr />
