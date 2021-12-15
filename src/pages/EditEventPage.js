@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams, useHistory } from "react-router-dom";
+import { AuthContext } from "../context/auth.context";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import ReactMapGL from "react-map-gl";
@@ -31,6 +32,7 @@ export default function EditEventPage(props) {
 
   const {id} = useParams()
   
+  const { user, error, setError, setSuccess } = useContext(AuthContext);
 
   useEffect(() => {
     // Get the token from the localStorage
@@ -43,7 +45,7 @@ export default function EditEventPage(props) {
       })
       .then((response) => {
         const oneEvent = response.data.data;
-        console.log("oneEvent:", oneEvent)
+        // console.log("oneEvent:", oneEvent)
         setTitle(oneEvent.title);
         setDescription(oneEvent.description);
         setIcon(oneEvent.icon);
@@ -68,7 +70,7 @@ export default function EditEventPage(props) {
     Geocode.fromLatLng(location[1], location[0]).then(
       (response) => {
         const geoAddress = response.results[0].formatted_address;
-        console.log(geoAddress);
+        // console.log(geoAddress);
         setAddress(geoAddress);
       },
       (error) => {
@@ -91,7 +93,9 @@ export default function EditEventPage(props) {
       })
       .then((response) => {
         //props.history.push(`/events`);
+        setSuccess("Event updated successfully")
         props.showCB()
+        props.refreshCB()
       });
     };
 
@@ -106,7 +110,9 @@ export default function EditEventPage(props) {
       })
       .then(() => {
         //history.push("/events")
+        setSuccess("Event deleted successfully")
         props.showCB()
+        props.refreshCB()
       })
       .catch((err) => console.log(err));
     };
