@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
 
 function NavbarItem(props) {
-  const { text, page, view } = props;
+  const { text, page, view, active } = props;
   const { user } = useContext(AuthContext);
+
+  console.log("make me orange", active === text);
 
   let path = null;
 
@@ -15,10 +17,17 @@ function NavbarItem(props) {
     path = "/" + page + "?view=" + view;
   }
   return (
-    <li className="nav-item d-flex align-items-end">
-      <Link className="text-decoration-none text-light" to={path}>
+    <li className="nav-item">
+      <Link
+        className="text-decoration-none text-light d-flex flex-column justify-content-center align-items-center m-auto py-2"
+        to={path}
+      >
         {props.children}
-        <p className="border-bottom fw-light">{text}</p>
+        {active === text ? (
+          <p className="orange-text fw-light m-0">{text}</p>
+        ) : (
+          <p className="fw-light m-0">{text}</p>
+        )}
       </Link>
     </li>
   );

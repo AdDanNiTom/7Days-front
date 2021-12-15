@@ -6,10 +6,8 @@ import { GeoAlt, Clipboard } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import DropdownLink from "../utilities/DropdownLink";
 import ReactMapGL, { Marker } from "react-map-gl";
-import pin from '../../images/pin.png';
+import pin from "../../images/pin.png";
 import EditEventPage from "../../pages/EditEventPage";
-import { propTypes } from "react-bootstrap/esm/Image";
-
 
 const API_URI = process.env.REACT_APP_API_URI;
 
@@ -26,7 +24,8 @@ export default function EventCard({
   maxAtendees,
   changeEffect,
   address,
-  refreshCB
+  refreshCB,
+  filterState,
 }) {
   const [isAttending, setIsAttending] = useState(false);
   const [open, setOpen] = useState(false);
@@ -68,6 +67,7 @@ export default function EventCard({
       .then((response) => {
         if (isAttending === true) setIsAttending(false);
         if (isAttending === false) setIsAttending(true);
+        refreshCB();
       })
       .catch((error) => {
         console.log(error);
