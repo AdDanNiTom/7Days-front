@@ -1,12 +1,15 @@
-
-
-
 body {
   margin: 0;
   min-height: 100vh;
   max-height: 100vh;
 
-  background: linear-gradient(129deg, rgb(159, 98, 167) 0%, rgb(122, 70, 131) 23%, rgb(97, 55, 114) 52%, rgb(57, 31, 78) 100%) !important;
+  background: linear-gradient(
+    129deg,
+    rgb(159, 98, 167) 0%,
+    rgb(122, 70, 131) 23%,
+    rgb(97, 55, 114) 52%,
+    rgb(57, 31, 78) 100%
+  ) !important;
   background-repeat: no-repeat !important;
   background-position: fixed !important;
   background-attachment: fixed !important;
@@ -29,11 +32,11 @@ select {
   margin-bottom: 100px;
 }
 
-.list-top-margin{
+.list-top-margin {
   margin-top: 5vh;
 }
 
-.logo-welcome{
+.logo-welcome {
   margin-top: 17vh;
   margin-bottom: 10vh;
 }
@@ -136,33 +139,33 @@ li {
   padding: 0 !important;
 }
 
-.popup-border{
+.popup-border {
   background: linear-gradient(to right, rgb(255, 189, 65), rgb(255, 200, 255));
   padding: 4px;
   border-radius: 10%;
   opacity: 100%;
 }
 
-.popup-content{
+.popup-content {
   margin: auto;
   color: black;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   border-radius: 10%;
-  background-color:white;
+  background-color: white;
   min-width: 250px;
   opacity: 85%;
 }
 
-.popup-title{
+.popup-title {
   padding: 0px 20px;
   align-items: center;
   justify-content: center;
   text-align: center;
 }
 
-.popup-description{
+.popup-description {
   margin: 0;
   padding: 0px 20px;
   align-items: flex-start;
@@ -170,7 +173,7 @@ li {
   text-align: center;
 }
 
-.popup-owner-attendees{
+.popup-owner-attendees {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -178,7 +181,7 @@ li {
   padding: 0px 20px;
 }
 
-.popup-list-title{
+.popup-list-title {
   text-decoration: underline;
 }
 
