@@ -22,7 +22,7 @@ function SuccessToast() {
       >
         <Toast.Header>
           <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-          <strong className="me-auto">Error</strong>
+          <strong className="me-auto">Success</strong>
           <small>error code</small>
         </Toast.Header>
         <Toast.Body>Success!</Toast.Body>

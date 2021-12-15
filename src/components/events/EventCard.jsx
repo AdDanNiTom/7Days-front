@@ -8,6 +8,7 @@ import DropdownLink from "../utilities/DropdownLink";
 import ReactMapGL, { Marker } from "react-map-gl";
 import pin from '../../images/pin.png';
 import EditEventPage from "../../pages/EditEventPage";
+import { propTypes } from "react-bootstrap/esm/Image";
 
 
 const API_URI = process.env.REACT_APP_API_URI;
@@ -25,6 +26,7 @@ export default function EventCard({
   maxAtendees,
   changeEffect,
   address,
+  refreshCB
 }) {
   const [isAttending, setIsAttending] = useState(false);
   const [open, setOpen] = useState(false);
@@ -90,7 +92,7 @@ export default function EventCard({
   return (
 
     <Row className="m-3">
-    <EditEventPage showCB={handleClose} show={show} id={_id} />
+    <EditEventPage refreshCB={refreshCB} showCB={handleClose} show={show} id={_id} />
       <Card className="p-0">
         <Card.Header className="d-flex justify-content-between align-items-center">
           <GeoAlt size={30} />
