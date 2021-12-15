@@ -7,7 +7,6 @@ import SevenDays from "../../components/events/SevenDays";
 import FilterByCategory from "../../components/events/FilterByCategory";
 import EventsList from "../../components/events/EventsList";
 import Mapbox from "../../components/events/Mapbox";
-import AddEvent from "../../components/AddEvent";
 import * as api from "../../apiRequests.js";
 import Loading from "../../components/status/Loading";
 
@@ -73,8 +72,6 @@ function EventMapMerge(props) {
       ) : (
         <EventsList events={filteredEvents} />
       )}
-      {/* Add event Form */}
-      <AddEvent />
     </>
   );
 }

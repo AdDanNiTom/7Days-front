@@ -13,7 +13,13 @@ import AnonRoute from "./components/AnonRoute";        // <== IMPORT
 import Welcome from "./pages/Welcome";
 import EventsPage from "./pages/events/EventsPage";
 
+import Error from "./components/status/Error";
+import { AuthContext } from "./context/auth.context";
+import { useContext } from "react";
+
 function App() {
+  const {error} = useContext(AuthContext)
+  console.log(error)
 
   return (
     <div className="App">
@@ -34,6 +40,7 @@ function App() {
 
       </Switch>
       <Navbar />
+      {error && <Error/>}
     </div>
   );
 }

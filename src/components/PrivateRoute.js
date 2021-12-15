@@ -14,7 +14,7 @@ function PrivateRoute(props) {
 
   // If the user is not logged in ❌
   if (!isLoggedIn) {
-    setError(true)
+    // setError(true)
     return <Redirect to="/" />;
   }
 

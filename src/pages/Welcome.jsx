@@ -1,9 +1,9 @@
 import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../context/auth.context";
 import axios from "axios";
+import LoginForm from "../components/forms/LoginForm";
 import LoginWithGoogle from "../components/welcome/LoginWithGoogle";
-import { Link } from "react-router-dom";
-
+import { Container } from "react-bootstrap";
 const API_URI = process.env.REACT_APP_API_URI;
 
 function Welcome(props) {
@@ -23,9 +23,10 @@ function Welcome(props) {
   return (
     <div>
       <h1>7Days</h1>
-      <LoginWithGoogle props={props} />
-      <Link to="/login">Login</Link>
-      <Link to="/signup">Signup</Link>
+      <Container fluid="sm" className="container-sm">
+        <LoginWithGoogle props={props} />
+        <LoginForm />
+      </Container>
     </div>
   );
 }

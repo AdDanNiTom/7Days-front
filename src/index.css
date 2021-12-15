@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  padding-bottom: 100px;
 }
 
 a {
@@ -38,12 +39,11 @@ textarea {
   width: 400px;
   text-align: center;
   margin: 0 auto;
-  margin-bottom: 20px;
   padding: 10px;
   border-radius: 4px;
 }
 
-.AddEvent{
+.AddEvent {
   margin-bottom: 23%;
 }
 
@@ -85,12 +85,12 @@ textarea {
   border: 1px solid black;
 }
 
-.drop-down-category{
+.drop-down-category {
   display: flex;
   justify-content: flex-start;
 }
 
-.icon-button{
+.icon-button {
   background: none;
   border: none;
   cursor: pointer;
