@@ -48,7 +48,7 @@ function EventMapMerge(props) {
   return (
     <>
       {/* FILTERS DROPDOWN */}
-      <Card>
+      <Card className="fixed-top">
         <Collapse in={showFilters}>
           <Card.Header>
             <SevenDays parentCb={handleFilterChange} filterState={filter} />

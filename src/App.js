@@ -7,7 +7,7 @@ import EditEventPage from "./pages/EditEventPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import EditProfilePage from "./pages/profile/EditProfilePage";
 import SignupPage from "./pages/SignupPage";
-import LoginPage from "./pages/LoginPage";
+// import LoginPage from "./pages/LoginPage";
 import PrivateRoute from "./components/PrivateRoute";    // <== IMPORT
 import AnonRoute from "./components/AnonRoute";        // <== IMPORT
 import Welcome from "./pages/Welcome";
@@ -35,7 +35,7 @@ function App() {
         {/* <PrivateRoute exact path="/profile" component={ProfilePage} /> */}
         
         <AnonRoute exact path="/signup" component={SignupPage} />
-        <AnonRoute exact path="/login" component={LoginPage} />
+        {/* <AnonRoute exact path="/login" component={LoginPage} /> */}
         {/* <AnonRoute exact path="/test" component={EventsPage} /> */}
 
       </Switch>

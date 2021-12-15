@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import EventCard from "./EventCard";
 import AddEvent from "../AddEvent";
 
+
 function EventsListPage(props) {
+
   const { events } = props;
   // state for selecting which day's events to show, initial value is current day
   const [attendingChange, setAttendingChange] = useState(false);
@@ -11,7 +13,7 @@ function EventsListPage(props) {
     setAttendingChange(!attendingChange);
   }
   return (
-    <div className="container">
+    <div className="container list-top-margin">
       {events &&
         events.map((event) => {
           return (
