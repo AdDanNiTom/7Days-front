@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import ReactMapGL from "react-map-gl";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Row, Col, Button, Modal, Form, FloatingLabel } from "react-bootstrap";
+import Geocode from "react-geocode";
 
 const API_URI = process.env.REACT_APP_API_URI;
 
@@ -28,6 +30,7 @@ export default function EditEventPage(props) {
   const history = useHistory()
 
   const {id} = useParams()
+  
 
   useEffect(() => {
     // Get the token from the localStorage
@@ -35,7 +38,7 @@ export default function EditEventPage(props) {
 
     // Send the token through the request "Authorization" Headers
     axios
-      .get(`${API_URI}/api/events/${id}`, {
+      .get(`${API_URI}/api/events/${props.id}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
@@ -59,7 +62,20 @@ export default function EditEventPage(props) {
         })
       })
       .catch((error) => console.log(error));
-    }, [id]);
+    }, [props.id]);
+
+    useEffect(() => {
+    Geocode.fromLatLng(location[1], location[0]).then(
+      (response) => {
+        const geoAddress = response.results[0].formatted_address;
+        console.log(geoAddress);
+        setAddress(geoAddress);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }, [location]);
     
     const handleFormSubmit = (e) => {
       e.preventDefault();
@@ -70,11 +86,12 @@ export default function EditEventPage(props) {
       
       // Send the token through the request "Authorization" Headers
       axios
-      .put(`${API_URI}/api/events/${id}`, requestBody, {
+      .put(`${API_URI}/api/events/${props.id}`, requestBody, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        props.history.push(`/events`);
+        //props.history.push(`/events`);
+        props.showCB()
       });
     };
 
@@ -84,10 +101,13 @@ export default function EditEventPage(props) {
       
       // Send the token through the request "Authorization" Headers
       axios
-      .delete(`${API_URI}/api/events/${id}`, {
+      .delete(`${API_URI}/api/events/${props.id}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
-      .then(() => history.push("/events"))
+      .then(() => {
+        //history.push("/events")
+        props.showCB()
+      })
       .catch((err) => console.log(err));
     };
     
@@ -98,32 +118,65 @@ export default function EditEventPage(props) {
     };
     
     return (
-    <div className="EditEventPage">
-      <h3>Edit the Event</h3>
-      <form onSubmit={handleFormSubmit}>
-        <button type="submit">Update Event</button>
-        <label>Title:</label>
-        <input
-          type="text"
-          name="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <label>Description:</label>
-        <textarea
-          type="text"
-          name="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <label>Category:</label>
-        <select
-          id="emoji-dropdown"
-          name="icon"
-          onChange={(e) => setIcon(e.target.value)}
-        >
-          <option>Choose a category</option>
-          {icon === "🙋" ? <option selected="selected" value="🙋">🙋 Open to plans</option> : <option value="🙋">🙋 Open to plans</option>} 
+      <Modal show={props.show} onHide={props.showCB}>
+      <Modal.Header closeButton>
+        <Modal.Title>Edit Event</Modal.Title>
+      </Modal.Header>
+      <Form onSubmit={handleFormSubmit}>
+      <Modal.Body>
+        <Row>
+        <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <FloatingLabel
+                  controlId="floatingTitleInput"
+                  label="Event title"
+                  className="mb-3"
+                >
+                  <Form.Control
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Name your event"
+                  />
+                </FloatingLabel>
+              </Form.Group>
+        </Row>
+        <Row>
+        <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <FloatingLabel
+                  controlId="floatingTitleInput"
+                  label="Description"
+                  className="mb-3"
+                >
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    name="description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                </FloatingLabel>
+              </Form.Group>
+        </Row>
+        <Row>
+        <Col>
+        <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlSelect1"
+                >
+                  <Form.Label>Category</Form.Label>
+                  <Form.Select
+                    aria-label="Default select example"
+                    id="emoji-dropdown"
+                    name="icon"
+                    onChange={(e) => setIcon(e.target.value)}
+                  >
+                    {icon === "🙋" ? <option selected="selected" value="🙋">🙋 Open to plans</option> : <option value="🙋">🙋 Open to plans</option>} 
           {icon === "🍺" ? <option selected="selected" value="🍺">🍺 Drinks</option> : <option value="🍺">🍺 Drinks</option>} 
           {icon === "☕" ? <option selected="selected" value="☕">☕ Coffee</option> : <option value="☕">☕ Coffee</option>} 
           {icon === "🥘" ? <option selected="selected" value="🥘">🥘 Food</option> : <option value="🥘">🥘 Food</option>} 
@@ -138,9 +191,28 @@ export default function EditEventPage(props) {
           {icon === "🎲" ? <option selected="selected" value="🎲">🎲 Board games</option> : <option value="🎲">🎲 Board games</option>}
           {icon === "🎮" ? <option selected="selected" value="🎮">🎮 Computer games</option> : <option value="🎮">🎮 Computer games</option>}
           {icon === "🤷" ? <option selected="selected" value="🤷">🤷 Other</option> : <option value="🤷">🤷 Other</option>}
-        </select>
-        <label>Date:</label>
         
+                  </Form.Select>
+          </Form.Group>
+              
+
+        </Col>
+        <Col>
+                <Form.Group className="mb-3" controlId="formMaxAttendees">
+                  <Form.Label>Max Atendees</Form.Label>
+                  <Form.Control
+                    type="number"
+                    name="maxAtendees"
+                    value={maxAtendees}
+                    onChange={(e) => setMaxAtendees(e.target.value)}
+                  />
+                </Form.Group>
+              </Col>
+          </Row>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Row>
+                <Col>
+                  <label>Date</label>
         <DatePicker
           className="datepicker"
           selected={eventDate}
@@ -151,7 +223,9 @@ export default function EditEventPage(props) {
           maxDate={new Date(new Date().setDate(new Date().getDate() + 6))}
           dateFormat="MMMM d, yyyy"
         />
-        <label>Time:</label>
+        </Col>
+        <Col>
+                  <label>Time</label>
         <DatePicker
           selected={eventTime}
           onChange={(eventTime) => setEventTime(eventTime)}
@@ -163,31 +237,35 @@ export default function EditEventPage(props) {
           timeCaption="Time"
           dateFormat="h:mm aa"
         />
-        <label>Max Atendees:</label>
-        <input
-          type="number"
-          name="maxAtendees"
-          value={maxAtendees}
-          onChange={(e) => setMaxAtendees(e.target.value)}
-        />
-        <div>Address: {address}</div>
-        <br />
-        <div className="minimap">
-          <ReactMapGL
-            {...viewport}
-            mapboxApiAccessToken="pk.eyJ1IjoiYWRyaWFuYXJhbmRhIiwiYSI6ImNrd3hmdzZzbDBjemQydnBsaTllN215dmoifQ.lSWVa5b6Z14zxBXLkER_xQ"
-            mapStyle="mapbox://styles/mapbox/streets-v10"
-            width="100%"
-            height="100%"
-            onViewportChange={(viewport) => setViewport(viewport)}
-            onClick={onClickMap}
-          ></ReactMapGL>
+        </Col>
+        </Row>
+        </Form.Group>
+        <Row className="d-flex justify-content-center">
+        <div className="minimap p-0 w-75">
+        <ReactMapGL
+                  {...viewport}
+                  mapboxApiAccessToken="pk.eyJ1IjoiYWRyaWFuYXJhbmRhIiwiYSI6ImNrd3hmdzZzbDBjemQydnBsaTllN215dmoifQ.lSWVa5b6Z14zxBXLkER_xQ"
+                  mapStyle="mapbox://styles/adrianaranda/ckx69z5kp7uyw15s9j733ujf0"
+                  width="100%"
+                  height="100%"
+                  onViewportChange={(viewport) => setViewport(viewport)}
+                  onClick={onClickMap}
+                ></ReactMapGL>
         </div>
-      </form>
-
-      <button onClick={deleteEvent}>Delete Event</button>
-      <Link className="btn btn-primary" to="/events">Back to Events</Link>
-    </div>
+        <Form.Control
+                className="w-75 mt-2"
+                type="text"
+                placeholder={address}
+                readOnly
+              />
+            </Row>
+    </Modal.Body>
+    <Modal.Footer>
+      <Button className="btn-warning" type="submit">Update Event</Button>
+      <Button className="btn-danger" onClick={deleteEvent}>Delete Event</Button>
+      </Modal.Footer>
+      </Form>
+    </Modal>
   );
 }
 

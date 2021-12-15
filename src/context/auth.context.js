@@ -8,6 +8,7 @@ function AuthProviderWrapper(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false)
+  const [success, setSuccess] = useState(false)
   const [user, setUser] = useState(null);
 
   const verifyToken = () => {
@@ -56,7 +57,7 @@ function AuthProviderWrapper(props) {
 
   return (
     <AuthContext.Provider
-      value={{ logInUser, logOutUser, user, isLoggedIn, isLoading, error, setError }}
+      value={{ logInUser, logOutUser, user, isLoggedIn, isLoading, error, setError, success, setSuccess }}
     >
       {props.children}
     </AuthContext.Provider>
