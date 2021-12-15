@@ -6,13 +6,15 @@ function SuccessToast() {
   const [show, setShow] = useState(true);
   const { success, setSuccess } = useContext(AuthContext);
 
-  /* 
+  
   setTimeout(() => {
     setSuccess(false);
-  }, 3000); */
+  }, 3000); 
+
+  console.log("popup popping up!")
 
   return (
-    <ToastContainer className="p-3" position="top-center">
+    <ToastContainer className="p-3 position-fixed" position="top-center">
       <Toast
         bg="success"
         onClose={() => setShow(false)}
