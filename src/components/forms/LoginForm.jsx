@@ -58,7 +58,8 @@ function LoginForm(props) {
       </Button>
       <Row>
         <Form.Text className="text-muted">
-          Don't have an account? <Link to="/signup">Signup</Link>
+          Don't have an account?{" "}
+          <Link onClick={() => props.parentCb("signup")}>Signup</Link>
         </Form.Text>
       </Row>
     </Form>
