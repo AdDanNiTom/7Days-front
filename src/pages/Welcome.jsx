@@ -4,6 +4,7 @@ import axios from "axios";
 import LoginForm from "../components/forms/LoginForm";
 import LoginWithGoogle from "../components/welcome/LoginWithGoogle";
 import { Container } from "react-bootstrap";
+import logo from "../images/seven-logo-w.svg"
 const API_URI = process.env.REACT_APP_API_URI;
 
 function Welcome(props) {
@@ -21,10 +22,11 @@ function Welcome(props) {
   }, [user]);
 
   return (
-    <div>
-      <h1>7Days</h1>
-      <Container fluid="sm" className="container-sm">
-        <LoginWithGoogle props={props} />
+    <div d-flex flex-column align-items-center>
+      <img src={logo} className="w-50 logo-welcome" alt="logo" />
+      <br />
+      <Container fluid="sm w-75" className="container-sm">
+        <LoginWithGoogle props={props} /><br /><hr />
         <LoginForm />
       </Container>
     </div>
