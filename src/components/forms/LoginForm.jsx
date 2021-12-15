@@ -35,7 +35,7 @@ function LoginForm(props) {
       {/****** Email field ******/}
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label className="text-white">or use credentials</Form.Label>
-        <Form.Control
+        <Form.Control className="m-0"
           required
           type="email"
           placeholder="Enter email"
