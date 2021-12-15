@@ -37,7 +37,7 @@ function SignupForm(props) {
       {/****** Email field ******/}
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label className="text-white w-100">Create your account:</Form.Label>
-        <Form.Control
+        <Form.Control className="m-0"
           required
           type="email"
           placeholder="Enter email"
@@ -49,7 +49,7 @@ function SignupForm(props) {
       {/****** Password field ******/}
       <Form.Group className="mb-3" controlId="formBasicPassword">
         {/* <Form.Label>Password</Form.Label> */}
-        <Form.Control
+        <Form.Control className="m-0"
           required
           type="password"
           placeholder="Password"
@@ -60,7 +60,7 @@ function SignupForm(props) {
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicName">
         {/* <Form.Label>Password</Form.Label> */}
-        <Form.Control
+        <Form.Control className="m-0"
           required
           type="text"
           placeholder="Choose your username"

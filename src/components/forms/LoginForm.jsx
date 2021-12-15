@@ -47,7 +47,7 @@ function LoginForm(props) {
       {/****** Password field ******/}
       <Form.Group className="mb-3" controlId="formBasicPassword">
         {/* <Form.Label>Password</Form.Label> */}
-        <Form.Control
+        <Form.Control className="m-0"
           required
           type="password"
           placeholder="Password"
