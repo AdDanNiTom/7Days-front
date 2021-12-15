@@ -31,6 +31,7 @@ function CommentsModal(props) {
       )
       .then((response) => {
         console.log(response);
+        setFormState("");
       })
       .catch((error) => {
         console.log(error);
@@ -54,7 +55,6 @@ function CommentsModal(props) {
           <Form onSubmit={handleSubmit}>
             <InputGroup className="mb-3">
               <FormControl
-                placeholder="Recipient's username"
                 aria-label="Recipient's username"
                 aria-describedby="basic-addon2"
                 value={formState}
@@ -65,7 +65,7 @@ function CommentsModal(props) {
                 variant="outline-secondary"
                 id="button-addon2"
               >
-                Button
+                Post
               </Button>
             </InputGroup>
           </Form>
