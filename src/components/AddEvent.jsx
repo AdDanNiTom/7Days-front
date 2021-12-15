@@ -93,7 +93,7 @@ export default function AddEvent(props) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button className="padding-button" variant="primary" onClick={handleShow}>
         <PlusCircle size={50} />
       </Button>
 
