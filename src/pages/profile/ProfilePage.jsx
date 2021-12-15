@@ -28,7 +28,7 @@ export default function ProfilePage() {
         {loggedUser && (
           <div className="Profile card" style={{ maxWidth: "400px" }}>
             <div>
-              <img src={loggedUser.profilePhoto} alt="Profile" />
+              <img src={loggedUser.profilePhoto} alt="Profile" className="profile-pic" />
             </div>
             <p>@{loggedUser.username}</p>
             <p>
