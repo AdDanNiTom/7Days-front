@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import DropdownLink from "../utilities/DropdownLink";
 import ReactMapGL, { Marker } from "react-map-gl";
 import pin from '../../images/pin.png';
+import EditEventPage from "../../pages/EditEventPage";
+import { propTypes } from "react-bootstrap/esm/Image";
 
 
 const API_URI = process.env.REACT_APP_API_URI;
@@ -24,6 +26,7 @@ export default function EventCard({
   maxAtendees,
   changeEffect,
   address,
+  refreshCB
 }) {
   const [isAttending, setIsAttending] = useState(false);
   const [open, setOpen] = useState(false);
@@ -37,6 +40,10 @@ export default function EventCard({
   });
 
   const { user } = useContext(AuthContext);
+
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
 
   useEffect(() => {
     attendees.forEach((attendee) => {
@@ -83,7 +90,9 @@ export default function EventCard({
     );
   }
   return (
+
     <Row className="m-3">
+    <EditEventPage refreshCB={refreshCB} showCB={handleClose} show={show} id={_id} />
       <Card className="p-0">
         <Card.Header className="d-flex justify-content-between align-items-center">
           <GeoAlt size={30} />
@@ -97,9 +106,9 @@ export default function EventCard({
             <Button onClick={handleJoinClick}>Join</Button>
           )}
           {owner._id === user._id && (
-            <Link className="btn btn-warning" to={`/events/edit/${_id}`}>
+            <Button className="btn btn-warning" onClick={handleShow}>
               Edit
-            </Link>
+            </Button>
           )}
         </Card.Header>
         <Card.Body className="d-flex flex-column justify-content-between align-items-center">
