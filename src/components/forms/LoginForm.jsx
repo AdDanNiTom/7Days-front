@@ -28,7 +28,10 @@ function LoginForm(props) {
       });
   };
   return (
-    <Form className="d-flex flex-column justify-content-center align-items-center" onSubmit={handleSubmit}>
+    <Form
+      className="d-flex flex-column justify-content-center align-items-center"
+      onSubmit={handleSubmit}
+    >
       {/****** Email field ******/}
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label className="text-white">or use credentials</Form.Label>
@@ -55,11 +58,18 @@ function LoginForm(props) {
       </Form.Group>
       <Button variant="primary" type="submit">
         Login
-      </Button> <hr />
+      </Button>{" "}
+      <hr />
       <Row>
         <Form.Text className="text-white">
-          Don't have an account?{" "}
-          <Link to="#" onClick={() => props.parentCb("signup")}>Signup</Link>
+          <p className="mb-0 text-white">Still don't have an account?</p>
+          <Link
+            className="text-warning"
+            to="#"
+            onClick={() => props.parentCb("signup")}
+          >
+            Signup
+          </Link>
         </Form.Text>
       </Row>
     </Form>
