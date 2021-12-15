@@ -56,33 +56,49 @@ function Mapbox(props) {
 
       {selectedEvent ? (
         <Popup
+          className="popup"
+          closeButton={false}
+          closeOnClick={true}
           latitude={selectedEvent.location[1]}
           longitude={selectedEvent.location[0]}
           onClose={() => {
             setSelectedEvent(null);
           }}
         >
-          <div>
+        <div className="popup-border">
+          <div className="popup-content">
             <br />
-            <h4>
+            <h4 className="popup-title">
               {selectedEvent.icon} {selectedEvent.title}
             </h4>
-            <p>{selectedEvent.description}</p>
-            <p>
-              Host:
-              {selectedEvent.owner
-                ? "@" + selectedEvent.owner.username
-                : "Anonymous"}
+            <p className="popup-description">
+            {selectedEvent.description}
             </p>
-            <p>
-              {/* ATTENDEES IS NOT BEING POPULATED */}
-              Attendees:
+            <br/>
+            <div className="popup-owner-attendees">
+            <ul className="popup-owner">
+              <div className="popup-list-title">
+              Host
+              </div>
+              <li>
+              {selectedEvent.owner.username}
+              </li>
+            </ul>
+            <p className="popup-attendees">
+            <div className="popup-list-title">
+              Attendees
+              </div>
               <ul>
-                {selectedEvent.attendees.map((attendee) => {
+                {selectedEvent.attendees.length === 0
+                ? <p>No attendees yet</p>
+                : selectedEvent.attendees.map((attendee) => {
                   return <li>{attendee.username}</li>;
                 })}
               </ul>
+              
             </p>
+            </div>
+          </div>
           </div>
         </Popup>
       ) : null}

@@ -110,3 +110,65 @@ textarea {
   width: 20vw;
   height: 40vh;
 }
+
+ul {
+  list-style-type: none;
+  align-items: flex-start;
+}
+
+li {
+  text-align: left;
+}
+
+.mapboxgl-popup-content{
+  background: none !important;
+  padding: 0 !important;
+}
+
+.popup-border{
+  background: linear-gradient(to right, rgb(255, 189, 65), rgb(255, 200, 255));
+  padding: 4px;
+  border-radius: 10%;
+  opacity: 100%;
+}
+
+.popup-content{
+  margin: auto;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: 10%;
+  background-color:white;
+  min-width: 250px;
+  opacity: 85%;
+}
+
+.popup-title{
+  padding: 0px 20px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.popup-description{
+  margin: 0;
+  padding: 0px 20px;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
+}
+
+.popup-owner-attendees{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  text-align: center;
+  padding: 0px 20px;
+}
+
+.popup-list-title{
+  text-decoration: underline;
+}
+
+
