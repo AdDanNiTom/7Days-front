@@ -17,13 +17,16 @@ function NavbarItem(props) {
     path = "/" + page + "?view=" + view;
   }
   return (
-    <li className="nav-item d-flex align-items-end">
-      <Link className="text-decoration-none text-light" to={path}>
+    <li className="nav-item">
+      <Link
+        className="text-decoration-none text-light d-flex flex-column justify-content-center align-items-center m-auto py-2"
+        to={path}
+      >
         {props.children}
         {active === text ? (
-          <p className="orange-text fw-light">{text}</p>
+          <p className="orange-text fw-light m-0">{text}</p>
         ) : (
-          <p className="fw-light">{text}</p>
+          <p className="fw-light m-0">{text}</p>
         )}
       </Link>
     </li>
