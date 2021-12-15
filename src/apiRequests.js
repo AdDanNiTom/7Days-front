@@ -15,6 +15,10 @@ export const fetchAllEvents = async () => {
     return res.data.data
 }
 
+export const fetchOneEvent = async (key) => {
+    const res = await api.get(`/api/events/${key.queryKey[1]}`);
+    return res.data.data
+}
 // GET SELECTED DAY'S EVENTS
 export const fetchSelectedDayEvents = async (key) => {
     try {
