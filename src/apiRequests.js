@@ -59,3 +59,11 @@ export const editUser = (editedUser) => {
     .then(res => res.data)
     .catch(errorHandler);
 };
+
+/***** POST A COMMENT *****/
+export const postComment = (comment) => {
+  return api
+    .post("/api/comments", comment)
+    .then(res => res.data)
+    .catch(errorHandler);
+};

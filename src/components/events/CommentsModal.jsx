@@ -1,0 +1,78 @@
+import React, { useState, useContext } from "react";
+import { Button, Modal, InputGroup, FormControl, Form } from "react-bootstrap";
+import Comment from "./Comment";
+import { AuthContext } from "../../context/auth.context";
+import axios from "axios";
+
+const API_URI = process.env.REACT_APP_API_URI;
+const storedToken = localStorage.getItem("authToken");
+
+function CommentsModal(props) {
+  const { comments } = props;
+  const [show, setShow] = useState(false);
+  const [formState, setFormState] = useState("");
+  const { user } = useContext(AuthContext);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const handleInput = (e) => setFormState(e.target.value);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formState, props.eventId, user._id);
+    axios
+      .post(
+        `${API_URI}/api/comments`,
+        { content: formState, authorId: user._id, eventId: props.eventId },
+        {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  return (
+    <>
+      <Button variant="primary" onClick={handleShow}>
+        See Comments
+      </Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Comments Title</Modal.Title>
+        </Modal.Header>
+        {comments &&
+          comments.map((oneComment) => <Comment comment={oneComment} />)}
+
+        <Modal.Footer>
+          <Form onSubmit={handleSubmit}>
+            <InputGroup className="mb-3">
+              <FormControl
+                placeholder="Recipient's username"
+                aria-label="Recipient's username"
+                aria-describedby="basic-addon2"
+                value={formState}
+                onChange={handleInput}
+              />
+              <Button
+                type="submit"
+                variant="outline-secondary"
+                id="button-addon2"
+              >
+                Button
+              </Button>
+            </InputGroup>
+          </Form>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+}
+
+export default CommentsModal;
