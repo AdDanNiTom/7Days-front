@@ -82,7 +82,6 @@ export default function EventCard({
       ][dayIndex] || ""
     );
   }
-
   return (
     <Row className="m-3">
       <Card className="p-0">
