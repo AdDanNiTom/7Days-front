@@ -22,7 +22,7 @@ function App(props) {
 
   useEffect(() => {
     setError(false)
-    // setSuccess(false)
+    setSuccess(success)
   }, [location])
 
   return (
