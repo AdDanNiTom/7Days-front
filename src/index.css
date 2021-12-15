@@ -98,3 +98,8 @@ textarea {
   width: 1px;
   height: 1px;
 }
+
+.profile-pic{
+  width: 20vw;
+  height: 40vh;
+}
