@@ -1,5 +1,15 @@
+
+
+
 body {
   margin: 0;
+  min-height: 100vh;
+  max-height: 100vh;
+
+  background: linear-gradient(129deg, rgb(159, 98, 167) 0%, rgb(122, 70, 131) 23%, rgb(97, 55, 114) 52%, rgb(57, 31, 78) 100%) !important;
+  background-repeat: no-repeat !important;
+  background-position: fixed !important;
+  background-attachment: fixed !important;
 }
 
 a {
@@ -21,6 +31,11 @@ select {
 
 .list-top-margin{
   margin-top: 5vh;
+}
+
+.logo-welcome{
+  margin-top: 17vh;
+  margin-bottom: 10vh;
 }
 
 label {
@@ -109,4 +124,8 @@ textarea {
 .profile-pic{
   width: 20vw;
   height: 40vh;
+}
+
+body {
+  background-color: #608dd5;
 }

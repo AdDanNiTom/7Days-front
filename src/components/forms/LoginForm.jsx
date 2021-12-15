@@ -28,10 +28,10 @@ function LoginForm(props) {
       });
   };
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form className="d-flex flex-column justify-content-center align-items-center" onSubmit={handleSubmit}>
       {/****** Email field ******/}
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email</Form.Label>
+        <Form.Label className="text-white">or use credentials</Form.Label>
         <Form.Control
           required
           type="email"
@@ -43,7 +43,7 @@ function LoginForm(props) {
       </Form.Group>
       {/****** Password field ******/}
       <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
+        {/* <Form.Label>Password</Form.Label> */}
         <Form.Control
           required
           type="password"
@@ -55,9 +55,9 @@ function LoginForm(props) {
       </Form.Group>
       <Button variant="primary" type="submit">
         Login
-      </Button>
+      </Button> <hr />
       <Row>
-        <Form.Text className="text-muted">
+        <Form.Text className="text-white">
           Don't have an account?{" "}
           <Link onClick={() => props.parentCb("signup")}>Signup</Link>
         </Form.Text>

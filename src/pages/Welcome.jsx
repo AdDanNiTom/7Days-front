@@ -5,6 +5,7 @@ import LoginForm from "../components/forms/LoginForm";
 import SignupForm from "../components/forms/SignupForm";
 import LoginWithGoogle from "../components/welcome/LoginWithGoogle";
 import { Container } from "react-bootstrap";
+import logo from "../images/seven-logo-w.svg"
 import { Link } from "react-router-dom";
 
 const API_URI = process.env.REACT_APP_API_URI;
@@ -27,12 +28,14 @@ function Welcome(props) {
   }, [user]);
 
   return (
+<div d-flex flex-column align-items-center>
+      <img src={logo} className="w-50 logo-welcome" alt="logo" />
+      <br />
     <Container fluid>
-      <h1>7Days</h1>
-      <Container fluid="sm" className="container-sm">
+      <Container fluid="sm w-75" className="container-sm">
         {view === "login" && (
           <Container>
-            <LoginWithGoogle props={props} />
+            <LoginWithGoogle props={props} /><br /><hr />
             <LoginForm parentCb={setView} />
           </Container>
         )}
@@ -44,6 +47,7 @@ function Welcome(props) {
         )}
       </Container>
     </Container>
+    </div>
   );
 }
 
