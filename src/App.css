@@ -36,3 +36,36 @@
     transform: rotate(360deg);
   }
 }
+
+
+.dropdown-link {
+  text-decoration: none !important;
+}
+
+.single-card {
+  background: linear-gradient(to right, rgb(204, 150, 255), rgb(255, 250, 180));
+  padding: 3px 3px !important;
+  border-radius: 5px;
+}
+.single-card-content {
+  border-radius: 5px !important;
+  background-color:#5f3c6e !important;
+  color: white !important;
+}
+
+.dropdowns-card {
+  color: white !important;
+}
+
+.icon-in-card {
+  padding-right: 15px !important;
+}
+
+.owner-name {
+  color: white !important;
+  text-decoration: none !important;
+}
+
+.random-class {
+  width: 100% !important;
+}

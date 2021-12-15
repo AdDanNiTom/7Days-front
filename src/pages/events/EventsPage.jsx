@@ -65,11 +65,12 @@ function EventMapMerge(props) {
           </Card.Header>
         </Collapse>
 
-        <DropdownLink
+        <DropdownLink textColor={"black"}
+        className="dropdown-link"
           open={showFilters}
           parentCb={setShowFilters}
-          textOpen="Hide filters"
-          textClosed="Show filters"
+          textOpen=" Hide filters"
+          textClosed=" Show filters"
         />
       </Card>
       {/* MAIN PAGE SWITCHER*/}

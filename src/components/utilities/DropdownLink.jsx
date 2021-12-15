@@ -3,22 +3,23 @@ import { Card } from "react-bootstrap";
 import { CaretUp, CaretDown } from "react-bootstrap-icons";
 
 function DropdownLink(props) {
-  const { open, parentCb, textOpen, textClosed } = props;
+  const { open, parentCb, textOpen, textClosed, textColor } = props;
   return (
     <Card.Link
+    className={`text-${textColor} text-decoration-none`}
       onClick={() => parentCb(!open)}
       aria-controls="example-collapse-text"
       aria-expanded={open}
     >
       {open && (
-        <Card.Text>
+        <Card.Text  >
           <CaretUp />
           {textOpen}
         </Card.Text>
       )}
       {!open && (
         <Card.Text>
-          <CaretDown />
+          <CaretDown/>
           {textClosed}
         </Card.Text>
       )}

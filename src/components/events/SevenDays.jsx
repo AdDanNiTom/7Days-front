@@ -6,7 +6,7 @@ function SevenDays(props) {
   let sevenDays = ["Su", "M", "T", "W", "Th", "F", "S"];
 
   return (
-    <Pagination>
+    <Pagination className="d-flex justify-content-center">
       <Pagination.Item
         onClick={() => parentCb(null, filterState.category)}
         active={filterState.weekday === null}

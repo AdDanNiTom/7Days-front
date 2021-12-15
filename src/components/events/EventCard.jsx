@@ -91,43 +91,43 @@ export default function EventCard({
   }
   return (
 
-    <Row className="m-3">
+    <Row className="m-3 singleCard">
     <EditEventPage refreshCB={refreshCB} showCB={handleClose} show={show} id={_id} />
-      <Card className="p-0">
+    <div className="single-card">
+      <Card className="p-0 single-card-content w-100">
         <Card.Header className="d-flex justify-content-between align-items-center">
-          <GeoAlt size={30} />
-          <Card.Title>{title}</Card.Title>
+          {/* <GeoAlt size={30} /> */}
+          <div className="d-flex justify-content">
+          <div className="icon-in-card">{icon} </div>
+          <Card.Title className="m-0">{title}</Card.Title></div>
           {isAttending && owner._id !== user._id && (
-            <Button onClick={handleJoinClick} variant="danger">
+            <Button className="w-25" onClick={handleJoinClick} variant="danger">
               Leave
             </Button>
           )}
           {!isAttending && owner._id !== user._id && (
-            <Button onClick={handleJoinClick}>Join</Button>
+            <Button className="w-25" onClick={handleJoinClick}>Join</Button>
           )}
           {owner._id === user._id && (
-            <Button className="btn btn-warning" onClick={handleShow}>
+            <Button className="btn btn-warning w-25" onClick={handleShow}>
               Edit
             </Button>
           )}
         </Card.Header>
-        <Card.Body className="d-flex flex-column justify-content-between align-items-center">
-          <Card.Title>
-            {/*date ? dayOfWeekAsString(date.weekday) : "unknown date"*/}
-            <h3>{icon}</h3>
-          </Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">
-            {owner ? (
-              <Link to={"/profile/" + owner._id}>@{owner.username}</Link>
-            ) : (
-              "Anonymous"
-            )}
+        <Card.Body className="d-flex flex-column align-items-baseline w-100">
+        <Card.Text>{description}</Card.Text>
+          {/* <Card.Title>
+            {date ? dayOfWeekAsString(date.weekday) : "unknown date"}
+          </Card.Title> */}
+          <Card.Subtitle className="mb-2 text-muted text-decoration-none">
+              <Link className="owner-name text-white" to={"/profile/" + owner._id}>By: {owner.username}</Link>
           </Card.Subtitle>
 
           <Collapse in={open}>
-            <div id="example-collapse-text w-100">
-              <Card.Text>{address}</Card.Text>
+            <div id="example-collapse-text" className="w-100">
+              {/* <Card.Text>{address}</Card.Text> */}
               <br />
+              <p className="mb-1">Location:</p>
               {location.length === 2 ? (
                 <ReactMapGL
                   {...viewport}
@@ -153,14 +153,9 @@ export default function EventCard({
                   </Marker>
                 </ReactMapGL>
               ) : (
-                <img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/no-location-1-832962.png" />
+                <img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/no-location-1-832962.png" alt="logoidontknow" />
               )}{" "}
               <br />
-              <Card.Text>
-                {description
-                  ? "Event Description: " + description
-                  : "No description available"}
-              </Card.Text>
               <div>
                 {attendees.length > 0 && <p>Attendees:</p>}
                 {attendees.map((attendee) => {
@@ -180,7 +175,7 @@ export default function EventCard({
               </Button>
             </div>
           </Collapse>
-          <DropdownLink
+          <DropdownLink textColor="white" className="dropdowns-card"
             open={open}
             parentCb={setOpen}
             textOpen="Hide details"
@@ -188,6 +183,7 @@ export default function EventCard({
           />
         </Card.Body>
       </Card>
+      </div>
     </Row>
   );
 }
