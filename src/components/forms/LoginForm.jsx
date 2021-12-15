@@ -59,7 +59,7 @@ function LoginForm(props) {
       <Row>
         <Form.Text className="text-white">
           Don't have an account?{" "}
-          <Link onClick={() => props.parentCb("signup")}>Signup</Link>
+          <Link to="#" onClick={() => props.parentCb("signup")}>Signup</Link>
         </Form.Text>
       </Row>
     </Form>

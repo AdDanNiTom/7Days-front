@@ -42,7 +42,7 @@ function Welcome(props) {
         {view === "signup" && (
           <Container>
             <SignupForm parentCb={setView} />
-            <Link onClick={() => setView("login")}>Back to login</Link>
+            <Link to="#" onClick={() => setView("login")}>Back to login</Link>
           </Container>
         )}
       </Container>
