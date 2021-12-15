@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const API_URI = process.env.REACT_APP_API_URI;
+
 const storedToken = localStorage.getItem("authToken");
 
 
@@ -28,3 +29,29 @@ export const fetchSelectedDayEvents = async (key) => {
         console.log(error)
     }
 }
+
+// GET THE IMAGES FROM CLOUDINARY
+const errorHandler = (err) => {
+    throw err;
+}
+
+export const getUser = () => {
+    return api
+    .get("/api/users")
+    .then((res) => res.data)
+    .catch(errorHandler)
+}
+
+export const uploadImage = (file) => {
+  return api
+    .post("/api/users/upload", file)
+    .then(res => res.data)
+    .catch(errorHandler);
+};
+ 
+export const editUser = (editedUser) => {
+  return api
+    .put("/api/users/edit", editedUser)
+    .then(res => res.data)
+    .catch(errorHandler);
+};
