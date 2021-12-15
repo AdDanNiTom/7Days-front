@@ -93,9 +93,9 @@ export default function EditEventPage(props) {
       })
       .then((response) => {
         //props.history.push(`/events`);
-        setSuccess("Event updated successfully")
         props.showCB()
         props.refreshCB()
+        setSuccess("Event updated successfully")
       });
     };
 
@@ -110,9 +110,9 @@ export default function EditEventPage(props) {
       })
       .then(() => {
         //history.push("/events")
-        setSuccess("Event deleted successfully")
         props.showCB()
         props.refreshCB()
+        setSuccess("Event deleted successfully")
       })
       .catch((err) => console.log(err));
     };
