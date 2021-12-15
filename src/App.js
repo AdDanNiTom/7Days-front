@@ -16,8 +16,6 @@ import ErrorToast from "./components/status/ErrorToast";
 import { AuthContext } from "./context/auth.context";
 import { useContext, useEffect } from "react";
 import SuccessToast from "./components/status/SuccessToast";
-import EventCard from "./components/events/EventCard";
-
 
 function App(props) {
   const {error, setError, success, setSuccess} = useContext(AuthContext)
