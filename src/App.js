@@ -5,7 +5,7 @@ import Navbar from "./components/navbar/Navbar";
 import EventDetailsPage from "./pages/EventDetailsPage";
 import EditEventPage from "./pages/EditEventPage";
 import ProfilePage from "./pages/profile/ProfilePage";
-import EditProfilePage from "./pages/profile/EditProfilePage";
+import EditProfilePage from "./pages/profile/EditProfilePage.jsx";
 import PrivateRoute from "./components/PrivateRoute";    // <== IMPORT
 import AnonRoute from "./components/AnonRoute";        // <== IMPORT
 import ShareRoute from "./components/ShareRoute";        // <== IMPORT
