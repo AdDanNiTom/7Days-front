@@ -17,11 +17,11 @@ function EventsListPage(props) {
       {events &&
         events.map((event) => {
           return (
-            <EventCard key={event._id} {...event} changeEffect={changeEffect} />
+            <EventCard key={event._id} {...event} changeEffect={changeEffect} refreshCB={props.refreshCB} />
           );
         })}
       {/* Add event Form */}
-      <AddEvent />
+      <AddEvent refreshCB={props.refreshCB} />
     </div>
   );
 }

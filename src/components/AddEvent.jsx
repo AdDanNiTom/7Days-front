@@ -30,14 +30,14 @@ export default function AddEvent(props) {
     zoom: 11,
     pitch: 15,
   });
-
+  //CONTEXT
+  const { user, error, setError, setSuccess } = useContext(AuthContext);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  //CONTEXT
-  const { user } = useContext(AuthContext);
+  
 
   useEffect(() => {
     Geocode.fromLatLng(location[1], location[0]).then(
@@ -81,7 +81,8 @@ export default function AddEvent(props) {
         setIcon("");
         setMaxAtendees("");
         setEventDate("");
-        props.refreshEvents();
+        setSuccess("Event created successfully");
+        props.refreshCB();
       })
       .catch((error) => console.log(error));
   };
