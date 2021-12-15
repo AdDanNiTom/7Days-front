@@ -117,7 +117,7 @@ export default function EventCard({
         </Card.Header>
         <Card.Body className="d-flex flex-column justify-content-between align-items-center">
           <Card.Title>
-            {filterState.weekday === null
+            {(filterState && filterState.weekday === null)
               ? dayOfWeekAsString(date.weekday)
               : ""}
             <h3>{icon}</h3>
