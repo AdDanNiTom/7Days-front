@@ -7,6 +7,8 @@ function NavbarItem(props) {
   const { text, page, view, active } = props;
   const { user } = useContext(AuthContext);
 
+  console.log("make me orange", active === text);
+
   let path = null;
 
   if (page === "profile") {
@@ -18,13 +20,11 @@ function NavbarItem(props) {
     <li className="nav-item d-flex align-items-end">
       <Link className="text-decoration-none text-light" to={path}>
         {props.children}
-        <p
-          className={`${
-            active === text ? "orange-text" : null
-          } border-bottom fw-light`}
-        >
-          {text}
-        </p>
+        {active === text ? (
+          <p className="orange-text fw-light">{text}</p>
+        ) : (
+          <p className="fw-light">{text}</p>
+        )}
       </Link>
     </li>
   );

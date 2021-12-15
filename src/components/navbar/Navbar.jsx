@@ -10,14 +10,13 @@ function Navbar() {
   let activeItem = null;
   if (location.pathname.includes("events")) {
     if (location.search.includes("map")) {
-      activeItem = "map";
+      activeItem = "Map";
     } else {
-      activeItem = "list";
+      activeItem = "Events";
     }
   } else {
-    activeItem = "profile";
+    activeItem = "Profile";
   }
-  console.log(activeItem);
 
   const svgSize = 20;
   const { isLoading } = useContext(AuthContext);
@@ -32,7 +31,7 @@ function Navbar() {
         <ul className="nav justify-content-evenly w-100">
           <NavbarItem active={activeItem} text="Map" page="events" view="map">
             <Map
-              color={activeItem === "map" ? "orange" : "white"}
+              color={activeItem === "Map" ? "orange" : "white"}
               size={svgSize}
             />
           </NavbarItem>
@@ -43,7 +42,7 @@ function Navbar() {
             view="list"
           >
             <CalendarEvent
-              color={activeItem === "list" ? "orange" : "white"}
+              color={activeItem === "Events" ? "orange" : "white"}
               size={svgSize}
             />
           </NavbarItem>
@@ -54,7 +53,7 @@ function Navbar() {
             state={null}
           >
             <Person
-              color={activeItem === "profile" ? "orange" : "white"}
+              color={activeItem === "Profile" ? "orange" : "white"}
               size={svgSize}
             />
           </NavbarItem>
