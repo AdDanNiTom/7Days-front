@@ -121,11 +121,6 @@ textarea {
   height: 1px;
 }
 
-.profile-pic{
-  width: 20vw;
-  height: 40vh;
-}
-
 ul {
   list-style-type: none;
   align-items: flex-start;
@@ -135,6 +130,7 @@ li {
   text-align: left;
 }
 
+/* Mapbox popup */
 .mapboxgl-popup-content{
   background: none !important;
   padding: 0 !important;
@@ -186,4 +182,25 @@ li {
   text-decoration: underline;
 }
 
+/* Profile card */
 
+/* .profile-card-border{
+  background: linear-gradient(to right, rgb(255, 189, 65), rgb(255, 200, 255));
+  padding: 4px !important;
+  margin-left: 10% !important;
+  margin-right: 10% !important;
+  margin-top: 10% !important;
+  border-radius: 10% !important;
+  margin-bottom: 200px !important;
+} */
+
+.profile-card{
+  align-content: center !important; 
+  margin: 20% 10% !important;
+  border-radius: 10% !important;
+}
+
+.profile-pic{
+  width: 40%;
+  height: 40%;
+}
