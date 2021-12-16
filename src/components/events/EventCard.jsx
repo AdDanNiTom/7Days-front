@@ -138,10 +138,20 @@ export default function EventCard({
           <Card.Body className="d-flex flex-column align-items-baseline w-100">
             <Card.Subtitle className="mb-2 text-muted text-decoration-none">
               <Link
-                className="owner-name text-white"
+                className="owner-name text-white text-decoration-none"
                 to={"/profile/" + owner._id}
               >
-                @{owner.username}
+                <img
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    borderRadius: "50%",
+                    border: "1px solid white",
+                  }}
+                  src={owner.profilePhoto}
+                  alt="profile-pic"
+                />
+                {"  "}@{owner.username}
               </Link>
             </Card.Subtitle>
             <Card.Text className="card-description">{description}</Card.Text>
