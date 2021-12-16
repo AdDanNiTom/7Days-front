@@ -92,7 +92,7 @@ export default function EventCard({
     );
   }
   return (
-    <Row className="m-3 singleCard">
+    <Row className="m-3 singleCard card-width">
       <EditEventPage
         refreshCB={refreshCB}
         showCB={handleClose}

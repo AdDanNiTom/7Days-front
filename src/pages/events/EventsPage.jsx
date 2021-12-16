@@ -56,7 +56,7 @@ function EventMapMerge(props) {
   return (
     <>
       {/* FILTERS DROPDOWN */}
-      <Card className="fixed-top">
+      <Card>
         <Collapse in={showFilters}>
           <Card.Header>
             <SevenDays parentCb={handleFilterChange} filterState={filter} />
@@ -74,17 +74,19 @@ function EventMapMerge(props) {
           textOpen=" Hide filters"
           textClosed=" Show filters"
         />
+      
       </Card>
       {/* MAIN PAGE SWITCHER*/}
       {view === "map" ? (
         <Mapbox events={filteredEvents} />
-      ) : (
+      ) : (<div className="w-100">
         <EventsList
           refreshCB={refreshCB}
           events={filteredEvents}
           filterState={filter}
-        />
+        /></div>
       )}
+      
     </>
   );
 }

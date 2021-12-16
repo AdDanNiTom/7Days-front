@@ -11,7 +11,7 @@ function EventsListPage(props) {
     setAttendingChange(!attendingChange);
   }
   return (
-    <div className="container list-top-margin">
+    <div className="container card-width">
       {events &&
         events.map((event) => {
           return (
