@@ -90,8 +90,8 @@ export default function EditProfilePage(props) {
         className="d-flex flex-column justify-content-center align-items-center"
         onSubmit={handleFormSubmit}
       >
-        <Form.Group className="text-white" controlId="formBasicEmail">
-          <h4 className="d-flex justify-content-start">Edit Profile - {formState.firstName}</h4>
+        <Form.Group className="text-white mt-4" controlId="formBasicEmail">
+          <h4 className="d-flex justify-content-start">Edit Profile</h4>
           <Form.Label className="mb-3 text-white d-flex justify-content-start">
             Profile picture:
           </Form.Label>
