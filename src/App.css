@@ -37,7 +37,6 @@
   }
 }
 
-
 .dropdown-link {
   text-decoration: none !important;
 }
@@ -49,7 +48,7 @@
 }
 .single-card-content {
   border-radius: 5px !important;
-  background-color:#5f3c6e !important;
+  background-color: #5f3c6e !important;
   color: white !important;
 }
 
@@ -61,7 +60,7 @@
   padding-right: 15px !important;
 }
 
-.owner-name {
+.owner-name  {
   color: white !important;
   text-decoration: none !important;
 }
@@ -70,11 +69,9 @@
   width: 100% !important;
 }
 
-
-
 /* copypaste this back to index.css if problem */
 
-.mapboxgl-popup-content{
+.mapboxgl-popup-content {
   background: none !important;
   padding: 0 !important;
 }
@@ -141,7 +138,7 @@
   margin-bottom: 200px !important;
 } */
 
-.profile-card{
+.profile-card {
   width: fit-content;
   border-radius: 23px;
   height: fit-content;
@@ -150,7 +147,11 @@
 .profile-container {
   height: 90vh;
 }
-.profile-pic{
+.profile-pic {
   width: 80%;
   border-radius: 50%;
+}
+.no-events {
+  color: white;
+  margin-top: 30%;
 }

@@ -24,6 +24,9 @@ function EventsListPage(props) {
             />
           );
         })}
+      {events && events.length === 0 && (
+        <p className="no-events">No events to show!</p>
+      )}
       {/* Add event Form */}
       <AddEvent refreshCB={props.refreshCB} />
     </div>
