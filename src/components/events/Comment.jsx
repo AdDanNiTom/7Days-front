@@ -7,15 +7,18 @@ function Comment(props) {
   return (
     <>
       {comment ? (
-        <Card>
-          <Card.Text>
-            <Link to={"/profile/" + comment.author._id}>
-              <b>@{comment.author.username}: </b>
+        <Card className="">
+          <Card.Text className="m-1 mb-0">
+            <div className="d-flex align-items-center">
+            <img className="photo-comment" src={comment.author.profilePhoto} alt="" />
+            <Link className="ml-2 text-decoration-none" to={"/profile/" + comment.author._id}>
+              <b >{comment.author.username}:</b>
             </Link>
 
-            {comment.content}
+            <p className="m-0">&nbsp;{`${comment.content}`}</p></div>
+          <p className="p-0 m-0 text-muted"> <i>{comment.createdAt}</i></p>
           </Card.Text>
-          {comment.createdAt}
+      
         </Card>
       ) : (
         "empty content"

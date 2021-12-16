@@ -12,13 +12,13 @@ function DropdownLink(props) {
       aria-expanded={open}
     >
       {open && (
-        <Card.Text  >
+        <Card.Text  className="nowrap margin-zero">
           <CaretUp />
           {textOpen}
         </Card.Text>
       )}
       {!open && (
-        <Card.Text>
+        <Card.Text  className="nowrap">
           <CaretDown/>
           {textClosed}
         </Card.Text>

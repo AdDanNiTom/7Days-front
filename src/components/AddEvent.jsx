@@ -94,7 +94,7 @@ export default function AddEvent(props) {
 
   return (
     <>
-      <Button className="padding-button" variant="primary" onClick={handleShow}>
+      <Button className="padding-button" variant="warning" onClick={handleShow}>
         <PlusCircle size={50} />
       </Button>
 
@@ -107,7 +107,7 @@ export default function AddEvent(props) {
             {/* Title */}
             <Row>
               <Form.Group
-                className="mb-3"
+                className="mb-0"
                 controlId="exampleForm.ControlInput1"
               >
                 <FloatingLabel
@@ -127,7 +127,7 @@ export default function AddEvent(props) {
             {/* Description */}
             <Row>
               <Form.Group
-                className="mb-3"
+                className="mb-0"
                 controlId="exampleForm.ControlInput1"
               >
                 <FloatingLabel
@@ -178,7 +178,7 @@ export default function AddEvent(props) {
                 </Form.Group>
               </Col>
               <Col>
-                <Form.Group className="mb-3" controlId="formMaxAttendees">
+                <Form.Group className="mb-0" controlId="formMaxAttendees">
                   <Form.Label>Max Atendees</Form.Label>
                   <Form.Control
                     type="number"
@@ -238,12 +238,13 @@ export default function AddEvent(props) {
               <Form.Control
                 className="w-75 mt-2"
                 type="text"
-                placeholder={address}
+                placeholder="Carrer de Almogàvers 19, 08975, Barcelona"
+                value={address}
                 readOnly
               />
             </Row>
           </Modal.Body>
-          <Modal.Footer>
+          <Modal.Footer className="d-flex flex-row justify-content-center">
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>

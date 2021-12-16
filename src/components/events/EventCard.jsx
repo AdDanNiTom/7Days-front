@@ -111,7 +111,7 @@ export default function EventCard({
         <Card className="p-0 single-card-content w-100">
           <Card.Header className="d-flex justify-content-between align-items-center">
             {/* <GeoAlt size={30} /> */}
-            <div className="d-flex justify-content">
+            <div className="d-flex ">
               <div className="icon-in-card">{icon} </div>
               <Card.Title className="m-0">{title}</Card.Title>
             </div>
@@ -140,7 +140,7 @@ export default function EventCard({
               <Link
                 className="owner-name text-white text-decoration-none"
                 to={"/profile/" + owner._id}
-              >
+              ><div className="d-flex align-items-center">
                 <img
                   style={{
                     width: "30px",
@@ -151,10 +151,10 @@ export default function EventCard({
                   src={owner.profilePhoto}
                   alt="profile-pic"
                 />
-                {"  "}@{owner.username}
+                <p className="mb-0">&nbsp;@{owner.username}</p></div>
               </Link>
             </Card.Subtitle>
-            <Card.Text className="card-description">{description}</Card.Text>
+            <Card.Text className="card-description mb-0">{description} <hr /></Card.Text>
 
             <Collapse in={open}>
               <div id="example-collapse-text" className="w-100">

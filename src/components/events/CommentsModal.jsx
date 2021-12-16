@@ -54,26 +54,28 @@ function CommentsModal(props) {
         onClick={handleShow}
       >
         <Card.Text>
-          <Chat />
-          {"  "} Comments
+          <div className="little-spacing-comments w-100">
+          
+          <Chat /><div> &nbsp;&nbsp;{comments.length === 0 ? "No comments" : `Comments (${comments.length})`}</div> </div>
         </Card.Text>
       </Link>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Comments Title</Modal.Title>
+          <Modal.Title>Comments</Modal.Title>
         </Modal.Header>
         {comments &&
           comments.map((oneComment) => <Comment comment={oneComment} />)}
 
-        <Modal.Footer>
-          <Form onSubmit={handleSubmit}>
+        <Modal.Footer className="p-0">
+          <Form className="w-100 px-2" onSubmit={handleSubmit}>
             <InputGroup className="mb-3">
               <FormControl
                 aria-label="Recipient's username"
                 aria-describedby="basic-addon2"
                 value={formState}
                 onChange={handleInput}
+                placeholder="Add your comment"
               />
               <Button
                 type="submit"

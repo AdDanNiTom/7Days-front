@@ -46,6 +46,21 @@
   padding: 3px 3px !important;
   border-radius: 5px;
 }
+
+.margin-zero {
+  width: auto;
+}
+
+
+.little-spacing-comments{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: fit-content !important;
+  white-space: nowrap;
+}
+
 .single-card-content {
   border-radius: 5px !important;
   background-color: #5f3c6e !important;

@@ -28,7 +28,7 @@ function EventsListPage(props) {
         <p className="no-events">No events to show!</p>
       )}
       {/* Add event Form */}
-      <AddEvent refreshCB={props.refreshCB} />
+      <AddEvent className="bg-warning" refreshCB={props.refreshCB} />
     </div>
   );
 }
