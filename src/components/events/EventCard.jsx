@@ -154,7 +154,7 @@ export default function EventCard({
                 <p className="mb-0">&nbsp;@{owner.username}</p></div>
               </Link>
             </Card.Subtitle>
-            <Card.Text className="card-description mb-0">{description} <hr /></Card.Text>
+            <Card.Text className="card-description mb-0 w-100">{description} <hr /></Card.Text>
 
             <Collapse in={open}>
               <div id="example-collapse-text" className="w-100">
@@ -250,7 +250,7 @@ export default function EventCard({
                   textClosed="Show details"
                 />
               </Col>
-              <Col>
+              <Col className="d-flex justify-content-center">
                 <CommentsModal comments={comments} eventId={_id} />
               </Col>
             </Row>
