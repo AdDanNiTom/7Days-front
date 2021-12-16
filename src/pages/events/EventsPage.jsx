@@ -74,17 +74,19 @@ function EventMapMerge(props) {
           textOpen=" Hide filters"
           textClosed=" Show filters"
         />
+      
       </Card>
       {/* MAIN PAGE SWITCHER*/}
       {view === "map" ? (
         <Mapbox events={filteredEvents} />
-      ) : (
+      ) : (<div className="w-100">
         <EventsList
           refreshCB={refreshCB}
           events={filteredEvents}
           filterState={filter}
-        />
+        /></div>
       )}
+      
     </>
   );
 }
