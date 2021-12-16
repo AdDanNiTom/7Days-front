@@ -3,6 +3,7 @@ import { Button, Modal, InputGroup, FormControl, Form } from "react-bootstrap";
 import Comment from "./Comment";
 import { AuthContext } from "../../context/auth.context";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const API_URI = process.env.REACT_APP_API_URI;
 const storedToken = localStorage.getItem("authToken");
@@ -40,9 +41,9 @@ function CommentsModal(props) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Link className="text-light text-decoration-none" to="#" variant="primary" onClick={handleShow}>
         See Comments
-      </Button>
+      </Link>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
