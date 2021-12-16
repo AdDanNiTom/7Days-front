@@ -104,6 +104,8 @@ function Mapbox() {
         <Popup
           latitude={selectedEvent.location[1]}
           longitude={selectedEvent.location[0]}
+          closeOnClick={true}
+          dynamicPosition={true}
           onClose={() => {
             setSelectedEvent(null);
           }}
