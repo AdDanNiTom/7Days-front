@@ -14,7 +14,7 @@ function SuccessToast() {
   console.log("popup popping up!")
 
   return (
-    <ToastContainer className="p-3 position-fixed" position="top-center">
+    <ToastContainer className="p-3" position="top-center">
       <Toast
         bg="success"
         onClose={() => setShow(false)}
