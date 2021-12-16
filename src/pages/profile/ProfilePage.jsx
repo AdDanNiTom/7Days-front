@@ -9,7 +9,7 @@ const API_URI = process.env.REACT_APP_API_URI;
 export default function ProfilePage() {
   const [loggedUser, setLoggedUser] = useState(null);
   const { user, logOutUser } = useContext(AuthContext);
-  const {id} = useParams()
+  const { id } = useParams();
 
   // console.log("homepage user: ", user._id)
 
@@ -27,32 +27,65 @@ export default function ProfilePage() {
       <div>{!loggedUser && <p>Loading</p>}</div>
       <div>
         {loggedUser && (
-          <Card className="profile-card">
-          <Card.Body>
-              <img src={loggedUser.profilePhoto} alt="Profile" className="profile-pic" />
-              <br/>
-              <br/>
-          <Card.Title>
-            <p>@{loggedUser.username}</p>
-          </Card.Title>
-          <Card.Subtitle>
-            <p>
-              {loggedUser.firstName} {loggedUser.lastName}
-            </p>
-          </Card.Subtitle>
-          <Card.Text>
-          <p>{loggedUser.biography}</p>
-          </Card.Text>
-            <Link to="/profile/edit">
-              <Button variant="warning">Edit profile</Button>
-            </Link>
-            <br/>
-            <br/>
-            <Button variant="danger" onClick={logOutUser} className="margin-bottom-profile">Logout</Button>
-          </Card.Body>
-          </Card>
+          <div className="w-100 profile-container d-flex justify-content-center align-items-center">
+            <div className="bg-white d-flex flex-column align-items-center justify-content-center p-4 profile-card shadow-lg">
+              <img
+                src={loggedUser.profilePhoto}
+                alt="Profile"
+                className="profile-pic mb-4 shadow"
+              />
+              <p>@{loggedUser.username}</p>
+              <p>
+                {loggedUser.firstName} {loggedUser.lastName}
+              </p>
+              <p><span className="bold">Biography: </span>{loggedUser.biography}</p>
+              <Link to="/profile/edit">
+                <Button variant="warning">Edit profile</Button>
+              </Link>
+              <br />
+              <Button
+                variant="danger"
+                onClick={logOutUser}
+                className="margin-bottom-profile"
+              >
+                Logout
+              </Button>
+            </div>
+          </div>
         )}
       </div>
     </div>
   );
 }
+
+// <div>
+//   <div>{!loggedUser && <p>Loading</p>}</div>
+//   <div>
+//     {loggedUser && (
+//       <Card className="">
+//       <Card.Body>
+//           <img src={loggedUser.profilePhoto} alt="Profile" className="profile-pic" />
+//           <br/>
+//           <br/>
+//       <Card.Title>
+//         <p>@{loggedUser.username}</p>
+//       </Card.Title>
+//       <Card.Subtitle>
+//         <p>
+//           {loggedUser.firstName} {loggedUser.lastName}
+//         </p>
+//       </Card.Subtitle>
+//       <Card.Text>
+//       <p>{loggedUser.biography}</p>
+//       </Card.Text>
+//         <Link to="/profile/edit">
+//           <Button variant="warning">Edit profile</Button>
+//         </Link>
+//         <br/>
+//         <br/>
+//         <Button variant="danger" onClick={logOutUser} className="margin-bottom-profile">Logout</Button>
+//       </Card.Body>
+//       </Card>
+//     )}
+//   </div>
+// </div>
