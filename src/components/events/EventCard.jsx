@@ -1,8 +1,16 @@
 import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { AuthContext } from "../../context/auth.context";
-import { Row, Button, Collapse, Card } from "react-bootstrap";
-import { Clipboard } from "react-bootstrap-icons";
+import {
+  Row,
+  Button,
+  Collapse,
+  Card,
+  OverlayTrigger,
+  Tooltip,
+  Col,
+} from "react-bootstrap";
+import { Chat, Clipboard } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import DropdownLink from "../utilities/DropdownLink";
 import ReactMapGL, { Marker } from "react-map-gl";
@@ -128,18 +136,15 @@ export default function EventCard({
             )}
           </Card.Header>
           <Card.Body className="d-flex flex-column align-items-baseline w-100">
-            <Card.Text>{description}</Card.Text>
-            {/* <Card.Title>
-            {date ? dayOfWeekAsString(date.weekday) : "unknown date"}
-          </Card.Title> */}
             <Card.Subtitle className="mb-2 text-muted text-decoration-none">
               <Link
                 className="owner-name text-white"
                 to={"/profile/" + owner._id}
               >
-                By: {owner.username}
+                @{owner.username}
               </Link>
             </Card.Subtitle>
+            <Card.Text className="card-description">{description}</Card.Text>
 
             <Collapse in={open}>
               <div id="example-collapse-text" className="w-100">
@@ -178,10 +183,38 @@ export default function EventCard({
                 )}{" "}
                 <br />
                 <div>
-                  {attendees.length > 0 && <p>Attendees:</p>}
-                  {attendees.map((attendee) => {
-                    return <p>{attendee.username}</p>;
-                  })}
+                  {attendees.length > 0 && (
+                    <Row>
+                      <p>
+                        Going:
+                        {attendees.map((attendee) => {
+                          return (
+                            <OverlayTrigger
+                              key={attendee._id}
+                              placement="top"
+                              overlay={
+                                <Tooltip id={`tooltip-top`}>
+                                  {attendee.username}
+                                </Tooltip>
+                              }
+                            >
+                              <img
+                                className="mx-1"
+                                src={attendee.profilePhoto}
+                                alt="profile pic"
+                                style={{
+                                  width: "30px",
+                                  height: "30px",
+                                  borderRadius: "50%",
+                                  border: "1px solid white",
+                                }}
+                              />
+                            </OverlayTrigger>
+                          );
+                        })}
+                      </p>
+                    </Row>
+                  )}
                 </div>
                 <Button
                   className="btn-light"
@@ -196,15 +229,21 @@ export default function EventCard({
                 </Button>
               </div>
             </Collapse>
-            <CommentsModal comments={comments} eventId={_id} />
-            <DropdownLink
-              textColor="white"
-              className="dropdowns-card"
-              open={open}
-              parentCb={setOpen}
-              textOpen="Hide details"
-              textClosed="Show details"
-            />
+            <Row className="w-100">
+              <Col>
+                <DropdownLink
+                  textColor="white"
+                  className="dropdowns-card"
+                  open={open}
+                  parentCb={setOpen}
+                  textOpen="Hide details"
+                  textClosed="Show details"
+                />
+              </Col>
+              <Col>
+                <CommentsModal comments={comments} eventId={_id} />
+              </Col>
+            </Row>
           </Card.Body>
         </Card>
       </div>

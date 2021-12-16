@@ -1,9 +1,17 @@
 import React, { useState, useContext } from "react";
-import { Button, Modal, InputGroup, FormControl, Form } from "react-bootstrap";
+import {
+  Button,
+  Modal,
+  InputGroup,
+  FormControl,
+  Form,
+  Card,
+} from "react-bootstrap";
 import Comment from "./Comment";
 import { AuthContext } from "../../context/auth.context";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { Chat } from "react-bootstrap-icons";
 
 const API_URI = process.env.REACT_APP_API_URI;
 const storedToken = localStorage.getItem("authToken");
@@ -21,7 +29,6 @@ function CommentsModal(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formState, props.eventId, user._id);
     axios
       .post(
         `${API_URI}/api/comments`,
@@ -31,7 +38,6 @@ function CommentsModal(props) {
         }
       )
       .then((response) => {
-        console.log(response);
         setFormState("");
       })
       .catch((error) => {
@@ -41,8 +47,16 @@ function CommentsModal(props) {
 
   return (
     <>
-      <Link className="text-light text-decoration-none" to="#" variant="primary" onClick={handleShow}>
-        See Comments
+      <Link
+        className="text-light text-decoration-none"
+        to="#"
+        variant="primary"
+        onClick={handleShow}
+      >
+        <Card.Text>
+          <Chat />
+          {"  "} Comments
+        </Card.Text>
       </Link>
 
       <Modal show={show} onHide={handleClose}>

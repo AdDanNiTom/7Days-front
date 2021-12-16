@@ -32,7 +32,7 @@ select {
   margin-bottom: 100px;
 }
 
-.card-width{
+.card-width {
   max-width: 700px !important;
 }
 
@@ -44,8 +44,8 @@ select {
   justify-content: center;
 }
 
-.card-width{
- max-width: 7000px;
+.card-width {
+  max-width: 7000px;
 }
 
 .logo-welcome {
@@ -144,5 +144,7 @@ ul {
 li {
   text-align: left;
 }
-
+.card-description {
+  text-align: left;
+}
 /* Mapbox popup */
