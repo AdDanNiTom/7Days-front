@@ -217,7 +217,7 @@ export default function EventCard({
                   )}
                 </div>
                 <Button
-                  className="btn-light"
+                  className="btn-light btn-sm mb-3"
                   onClick={() => {
                     navigator.clipboard.writeText(
                       `https://app-seven.herokuapp.com/events/${_id}`
@@ -225,7 +225,7 @@ export default function EventCard({
                   }}
                 >
                   <Clipboard size={20} />
-                  Copy Event URL
+                  {"  "}Share
                 </Button>
               </div>
             </Collapse>
